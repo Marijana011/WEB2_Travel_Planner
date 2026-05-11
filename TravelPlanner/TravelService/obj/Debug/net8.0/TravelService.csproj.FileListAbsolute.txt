@@ -139,3 +139,4 @@ E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\refint\TravelService.d
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelService.pdb
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelService.genruntimeconfig.cache
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\ref\TravelService.dll
+E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelService.sourcelink.json

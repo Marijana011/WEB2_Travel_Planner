@@ -142,3 +142,4 @@ E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\refint\AuthService.dll
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthService.pdb
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthService.genruntimeconfig.cache
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\ref\AuthService.dll
+E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthService.sourcelink.json
