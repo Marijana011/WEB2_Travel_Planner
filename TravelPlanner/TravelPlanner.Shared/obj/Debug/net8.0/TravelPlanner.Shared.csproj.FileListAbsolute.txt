@@ -1,0 +1,11 @@
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\bin\Debug\net8.0\TravelPlanner.Shared.deps.json
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\bin\Debug\net8.0\TravelPlanner.Shared.dll
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\bin\Debug\net8.0\TravelPlanner.Shared.pdb
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.GeneratedMSBuildEditorConfig.editorconfig
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.AssemblyInfoInputs.cache
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.AssemblyInfo.cs
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.csproj.CoreCompileInputs.cache
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.dll
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\refint\TravelPlanner.Shared.dll
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.pdb
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\ref\TravelPlanner.Shared.dll
