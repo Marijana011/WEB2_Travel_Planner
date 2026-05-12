@@ -17,7 +17,7 @@ namespace TravelService.Controllers
         private readonly AppDbContext _context;
 
         public TripController(AppDbContext context)
-        { 
+        {
             _context = context;
         }
 
@@ -124,5 +124,22 @@ namespace TravelService.Controllers
             return Ok(trip);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTrip(Guid id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var trip = await _context.Trips
+                .Include(t => t.Destinations)
+                .Include(t => t.Activities)
+                .FirstOrDefaultAsync(x => x.Id == id && x.UserId.ToString() == userId);
+
+            if (trip == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(trip);
+        }
     }
 }

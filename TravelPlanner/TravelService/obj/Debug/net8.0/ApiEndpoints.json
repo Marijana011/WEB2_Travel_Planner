@@ -157,5 +157,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelService.Controllers.TripController",
+    "Method": "GetTrip",
+    "RelativePath": "api/Trip/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
