@@ -5,13 +5,10 @@ import { useNavigate } from "react-router-dom";
 
 function DashboardPage() {
   const [trips, setTrips] = useState([]);
-
   const [title, setTitle] = useState("");
-
   const [description, setDescription] = useState("");
-
   const [budget, setBudget] = useState("");
-
+  const [editingTripId, setEditingTripId] = useState(null);
   const navigate = useNavigate();
 
   const getTrips = async () => {
@@ -30,11 +27,24 @@ function DashboardPage() {
       setTrips(response.data);
     } catch (error) {
       console.log(error);
+
+      if(error.response?.status === 401){
+        localStorage.removeItem("token");
+
+        window.location.href = "/";
+      }
     }
   };
 
   const createTrip = async () => {
     try {
+      if(!title || !description || !budget){
+        alert("Please fill all fields.");
+
+        return;
+      }
+
+
       const token = localStorage.getItem("token");
 
       await axios.post(
@@ -61,7 +71,93 @@ function DashboardPage() {
       getTrips();
     } catch (error) {
       console.log(error);
+
+      if(error.response?.status === 401){
+        localStorage.removeItem("token");
+
+        window.location.href = "/";
+      }
     }
+  };
+
+  const deleteTrip = async (tripId) => {
+    try{
+      const token = localStorage.getItem("token");
+
+      await axios.delete(
+        `https://localhost:7215/api/Trip/${tripId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      getTrips();
+    }catch (error){
+      console.log(error);
+
+      if(error.response?.status === 401){
+        localStorage.removeItem("token");
+
+        window.location.href = "/";
+      }
+    }
+  };
+
+  const startEditTrip = (trip) => {
+    setEditingTripId(trip.id);
+    
+    setTitle(trip.title);
+    setDescription(trip.description);
+    setBudget(trip.budget);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const updateTrip = async () => {
+    try{
+      const token = localStorage.getItem("token");
+
+      await axios.delete(
+        `https://localhost:7215/api/Trip/${editingTripId}`,
+        {
+          id: editingTripId,
+          title,
+          description,
+          startDate: "2026-06-01",
+          endtDate: "2026-06-10",
+          budget: Number(budget),
+          notes: "Updated from React",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setEditingTripId(null);
+
+      setTitle("");
+      setDescription("");
+      setBudget("");
+
+      getTrips();
+    }catch(error) {
+      console.log(error);
+    }
+  };
+
+
+  const cancelEditing = () => {
+    setEditingTripId(null);
+
+    setTitle("");
+    setDescription("");
+    setBudget("");
   };
 
   const logout = () => {
@@ -73,6 +169,7 @@ function DashboardPage() {
   useEffect(() => {
     getTrips();
   }, []);
+
 
   return (
     <div className="app">
@@ -101,7 +198,23 @@ function DashboardPage() {
             onChange={(e) => setBudget(e.target.value)}
           />
 
-          <button onClick={createTrip}>Create Trip</button>
+          {editingTripId ? (
+            <button onClick={updateTrip}>
+              Save Changes
+            </button>
+            ) : (
+            <button onClick={createTrip}>
+              Create Trip
+            </button>
+          )}
+
+          {editingTripId && (
+          <button
+            className="cancel-btn"
+            onClick={cancelEditing}>
+              Cancel
+          </button>
+          )}
 
           <button className="logout-btn" onClick={logout}>
             Logout
@@ -116,6 +229,29 @@ function DashboardPage() {
               <p>{trip.description}</p>
 
               <p>Budget: {trip.budget}</p>
+
+              <div className="card-buttons">
+                <button
+                  className="edit-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    startEditTrip(trip);
+                  }}>
+                  Edit
+                </button>
+
+                <button
+                  className="delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    deleteTrip(trip.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>

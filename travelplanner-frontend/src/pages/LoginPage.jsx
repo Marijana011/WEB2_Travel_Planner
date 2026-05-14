@@ -13,6 +13,13 @@ function LoginPage() {
 
   const login = async () => {
     try {
+
+      if(!email || !password){
+        alert("Please fill all fields.");
+
+        return;
+      }
+
       const response = await axios.post(
         "https://localhost:7023/api/Auth/login",
         {

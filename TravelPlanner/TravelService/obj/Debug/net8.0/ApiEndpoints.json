@@ -81,6 +81,27 @@
   },
   {
     "ContainingType": "TravelService.Controllers.DestinationController",
+    "Method": "UpdateDestination",
+    "RelativePath": "api/Destination/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "TravelService.DTOs.CreateDestinationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelService.Controllers.DestinationController",
     "Method": "GetDestinations",
     "RelativePath": "api/Destination/{tripId}",
     "HttpMethod": "GET",

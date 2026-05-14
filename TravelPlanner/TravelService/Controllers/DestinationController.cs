@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using System.Security.Claims;
 using TravelService.Data;
 using TravelService.DTOs;
@@ -72,7 +73,7 @@ namespace TravelService.Controllers
                 TripId = dto.TripId,
             };
 
-            _context.Destinations.Add(destination); 
+            _context.Destinations.Add(destination);
 
             await _context.SaveChangesAsync();
 
@@ -96,5 +97,27 @@ namespace TravelService.Controllers
 
             return Ok("Destination deleted.");
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDestination(Guid id, CreateDestinationDto dto)
+        {
+            var destination = await _context.Destinations.FindAsync(id);
+
+            if (destination == null)
+            {
+                return NotFound();
+            }
+
+            destination.Name = dto.Name;
+            destination.Location = dto.Location;
+            destination.Description = dto.Description;
+            destination.ArrivalDate = dto.ArrivalDate;
+            destination.DepartureDate = dto.DepartureDate;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
     }
 }

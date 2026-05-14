@@ -3,7 +3,7 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  background: linear-gradient(135deg, #38bdf8, #cacbe0);
   min-height: 100vh;
   color: white;
 }
@@ -30,44 +30,50 @@ body {
 }
 
 .form-section {
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
   padding: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 28px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  width: 600px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  gap: 18px;
+  width: 650px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
 }
 
 input {
-  padding: 14px;
+  padding: 16px;
   border: none;
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.15);
-  color: white;
-  font-size: 15px;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.28);
+  color: #1e293b;
+  font-size: 16px;
   outline: none;
+  transition: 0.2s ease;
 }
 
-input::placeholder {
-  color: #cbd5e1;
+input:focus {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.18);
 }
 
 button {
-  padding: 14px;
+  padding: 15px;
   border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #64b2e6, #a6c6da);
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    #67e8f9,
+    #38bdf8
+  );
   color: white;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s ease;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  transition: 0.25s ease;
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.35);
 }
 
 button:hover {
@@ -85,19 +91,27 @@ button:hover {
   margin-bottom: 50px;
 }
 
+.emoji {
+  margin-right: 5px;
+}
+
 .trip-card {
-   background: linear-gradient(
-    135deg,
-    rgba(37, 99, 235, 0.55),
-    rgba(124, 58, 237, 0.45)
+  background: linear-gradient(
+  135deg,
+  #DDB892,
+  #F4E3C1
   );
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 24px;
-  padding: 24px;
-  transition: 0.25s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  color: #1e293b;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 28px;
+  padding: 28px;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .trip-card:hover {
@@ -106,15 +120,23 @@ button:hover {
 }
 
 .trip-card h3 {
+  font-size: 34px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-top: 0;
-  font-size: 30px;
-  color: #dbeafe;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 32px;
+  min-height: 70px;
 }
 
 .trip-card p {
-  color: #e2e8f0;
+  color: #334155;
   line-height: 1.7;
+  font-weight: 500;
 }
 
 .trip-summary {
@@ -138,3 +160,36 @@ button:hover {
   color: white;
   text-shadow: 0 4px 20px rgba(0,0,0,0.25);
 }
+
+.card-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.trip-card .card-buttons button{
+  width: 110px;
+  height: 52px;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.delete-btn:hover {
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+.edit-btn {
+  background: linear-gradient(
+    135deg,
+    #34d399,
+    #10b981
+  );
+}
+
+.edit-btn:hover {
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+

@@ -34,3 +34,4 @@ E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\refint\BudgetService.d
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetService.pdb
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetService.genruntimeconfig.cache
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\ref\BudgetService.dll
+E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetService.sourcelink.json

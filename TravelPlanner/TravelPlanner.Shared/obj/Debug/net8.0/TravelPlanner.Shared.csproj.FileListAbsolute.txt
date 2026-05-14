@@ -9,3 +9,4 @@ E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.S
 E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\refint\TravelPlanner.Shared.dll
 E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.pdb
 E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\ref\TravelPlanner.Shared.dll
+E:\FAKS\WEB2\TravelPlanner\TravelPlanner.Shared\obj\Debug\net8.0\TravelPlanner.Shared.sourcelink.json

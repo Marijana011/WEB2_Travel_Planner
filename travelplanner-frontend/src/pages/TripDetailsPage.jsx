@@ -10,6 +10,7 @@ function TripDetailsPage() {
   const [destinationName, setDestinationName] = useState("");
   const [location, setLocation] = useState("");
   const [destinationDescription, setDestinationDescription] = useState("");
+  const [editingDestinationId, setEditingDestinationId] = useState(null);
 
   const [activityTitle, setActivityTitle] = useState("");
   const [activityLocation, setActivityLocation] = useState("");  
@@ -33,11 +34,23 @@ function TripDetailsPage() {
       setTrip(response.data);
     } catch (error) {
       console.log(error);
+
+      if(error.response?.status === 401){
+        localStorage.removeItem("token");
+
+        window.location.href = "/";
+      }
     }
   };
 
   const createDestination = async () => {
     try{
+        if(!destinationName || !location || !destinationDescription){
+          alert("Please fill all fields.");
+
+          return;
+        }
+
         const token = localStorage.getItem("token");
 
         await axios.post(
@@ -69,6 +82,13 @@ function TripDetailsPage() {
 
     const createActivity = async () => {
         try{
+            if(!activityTitle || !activityLocation || !activityDescription){
+              alert("Please fill all fields.");
+
+              return;
+            }
+
+
             const token = localStorage.getItem("token");
 
             await axios.post(
@@ -98,9 +118,122 @@ function TripDetailsPage() {
             getTrip();
         }catch (error) {
             console.log(error);
+
+            if(error.response?.status === 401){
+              localStorage.removeItem("token");
+
+              window.location.href = "/";
+            }
         }
     };
 
+    const deleteDestination = async (destinationId) => {
+      try {
+        const token = localStorage.getItem("token");
+
+        await axios.delete(
+        `https://localhost:7215/api/Destination/${destinationId}`,
+        {
+          headers: {
+          Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      getTrip();
+      } catch (error) {
+        console.log(error);
+
+        if (error.response?.status === 401) {
+          localStorage.removeItem("token");
+
+          window.location.href = "/";
+        }
+      }
+  };
+
+  const deleteActivity = async (activityId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.delete(
+        `https://localhost:7215/api/Activity/${activityId}`,
+        {
+          headers: {
+          Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      getTrip();
+    } catch (error) {
+      console.log(error);
+
+      if (error.response?.status === 401) {
+        localStorage.removeItem("token");
+
+        window.location.href = "/";
+      }
+    }
+};
+
+const startEditDestination = (destination) => {
+  setEditingDestinationId(destination.id);
+
+  setDestinationName(destination.name);
+  setLocation(destination.location);
+  setDestinationDescription(destination.description);
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};  
+
+const updateDestination = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.put(
+      `https://localhost:7215/api/Destination/${editingDestinationId}`,
+      {
+        id: editingDestinationId,
+        name: destinationName,
+        location: location,
+        arrivalDate: "2026-06-01",
+        departureDate: "2026-06-05",
+        description: destinationDescription,
+        tripId: id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setEditingDestinationId(null);
+
+    setDestinationName("");
+    setLocation("");
+    setDestinationDescription("");
+
+    getTrip();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+const cancelDestinationEdit = () => {
+  setEditingDestinationId(null);
+
+  setDestinationName("");
+
+  setLocation("");
+
+  setDestinationDescription("");
+};
 
   useEffect(() => {
     getTrip();
@@ -149,20 +282,55 @@ function TripDetailsPage() {
                 onChange={(e) => setDestinationDescription(e.target.value)}>
             </input>
 
-            <button onClick={createDestination}>
-                Add Destination
-            </button>
+
+            <div className="card-buttons">
+              {editingDestinationId ? (
+              <button onClick={updateDestination}>
+                  Save Destination
+              </button>
+              ) : (
+              <button onClick={createDestination}>
+                  Add Destination
+              </button>
+              )}
+
+              {editingDestinationId && (
+                <button
+                  className="cancel-btn"
+                  onClick={cancelDestinationEdit}
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
         </div>
 
-        <h2 section-title>Destinations</h2>
+        <h2 className="section-title">Destinations</h2>
         <div className="trip-grid">
           {trip.destinations.map((destination) => (
             <div key={destination.id} className="trip-card trip-summary">
-              <h3>📍 {destination.name}</h3>
+              <h3><span className="emoji">📍</span> {destination.name}</h3>
 
               <p>{destination.location}</p>
 
               <p>{destination.description}</p>
+
+              <div className="card-buttons">
+                <button
+                  className="edit-btn"
+                  onClick={() => startEditDestination(destination)}>
+                    Edit
+                </button>
+
+                <div className="card-buttons">
+                  <button
+                    className="delete-btn"
+                    onClick={() => deleteActivity(activity.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -202,9 +370,9 @@ function TripDetailsPage() {
         </div>
 
 
-        <h2>Activities</h2>
+        <h2 className="section-title">Activities</h2>
         <div className="trip-grid">
-          {trip.activities.map((activity) => (
+          {[...trip.activities].reverse().map((activity) => (
             <div key={activity.id} className="trip-card trip-summary">
               <h3>🗓️ {activity.title}</h3>
 
@@ -213,6 +381,15 @@ function TripDetailsPage() {
               <p>{activity.description}</p>
 
               <p>Cost: {activity.estimatedCost}</p>
+
+              <div className="card-buttons">
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteActivity(activity.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
