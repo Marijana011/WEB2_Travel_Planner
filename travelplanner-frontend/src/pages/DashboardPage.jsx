@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function DashboardPage() {
   const [trips, setTrips] = useState([]);
@@ -39,11 +40,10 @@ function DashboardPage() {
   const createTrip = async () => {
     try {
       if(!title || !description || !budget){
-        alert("Please fill all fields.");
+        toast.error("Please fill all fields.");
 
         return;
       }
-
 
       const token = localStorage.getItem("token");
 
@@ -67,6 +67,7 @@ function DashboardPage() {
       setTitle("");
       setDescription("");
       setBudget("");
+      toast.success("Trip created!");
 
       getTrips();
     } catch (error) {
@@ -81,6 +82,12 @@ function DashboardPage() {
   };
 
   const deleteTrip = async (tripId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this trip?");
+
+    if (!confirmed) {
+      return;
+    }
+
     try{
       const token = localStorage.getItem("token");
 
@@ -94,6 +101,7 @@ function DashboardPage() {
       );
 
       getTrips();
+      toast.success("Trip deleted!");
     }catch (error){
       console.log(error);
 
@@ -122,14 +130,14 @@ function DashboardPage() {
     try{
       const token = localStorage.getItem("token");
 
-      await axios.delete(
+      await axios.put(
         `https://localhost:7215/api/Trip/${editingTripId}`,
         {
           id: editingTripId,
           title,
           description,
           startDate: "2026-06-01",
-          endtDate: "2026-06-10",
+          endDate: "2026-06-10",
           budget: Number(budget),
           notes: "Updated from React",
         },
@@ -144,6 +152,7 @@ function DashboardPage() {
       setTitle("");
       setDescription("");
       setBudget("");
+      toast.success("Trip updated!");
 
       getTrips();
     }catch(error) {
@@ -154,13 +163,17 @@ function DashboardPage() {
 
   const cancelEditing = () => {
     setEditingTripId(null);
-
     setTitle("");
     setDescription("");
     setBudget("");
   };
 
   const logout = () => {
+    const confirmed = window.confirm("Are you sure you want to logout?");
+    if(!confirmed){
+      return;
+    }
+
     localStorage.removeItem("token");
 
     window.location.href = "/";

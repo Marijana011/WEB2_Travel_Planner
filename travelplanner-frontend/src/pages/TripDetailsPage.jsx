@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../App.css";
+import { toast } from "react-toastify";
 
 function TripDetailsPage() {
   const { id } = useParams();
@@ -16,7 +17,7 @@ function TripDetailsPage() {
   const [activityLocation, setActivityLocation] = useState("");  
   const [activityDescription, setActivityDescription] = useState("");
   const [estimatedCost, setEstimatedCost] = useState("");
-
+  const [editingActivityId, setEditingActivityId] = useState(null);
 
   const getTrip = async () => {
     try {
@@ -46,7 +47,7 @@ function TripDetailsPage() {
   const createDestination = async () => {
     try{
         if(!destinationName || !location || !destinationDescription){
-          alert("Please fill all fields.");
+          toast.error("Please fill all fields.");
 
           return;
         }
@@ -73,6 +74,7 @@ function TripDetailsPage() {
         setDestinationName("");
         setLocation("");
         setDestinationDescription("");
+        toast.success("Destination added!");
 
         getTrip();
         }catch(error){
@@ -83,7 +85,7 @@ function TripDetailsPage() {
     const createActivity = async () => {
         try{
             if(!activityTitle || !activityLocation || !activityDescription){
-              alert("Please fill all fields.");
+              toast.error("Please fill all fields.");
 
               return;
             }
@@ -114,6 +116,7 @@ function TripDetailsPage() {
             setActivityLocation("");
             setActivityDescription("");
             setEstimatedCost("");
+            toast.success("Activity added!");
 
             getTrip();
         }catch (error) {
@@ -128,6 +131,11 @@ function TripDetailsPage() {
     };
 
     const deleteDestination = async (destinationId) => {
+      const confirmed = window.confirm("Are you sure you want to delete this destination?");
+
+      if (!confirmed) {
+        return;
+      }
       try {
         const token = localStorage.getItem("token");
 
@@ -141,6 +149,7 @@ function TripDetailsPage() {
       );
 
       getTrip();
+      toast.success("Destination deleted!");
       } catch (error) {
         console.log(error);
 
@@ -153,6 +162,11 @@ function TripDetailsPage() {
   };
 
   const deleteActivity = async (activityId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this activity?");
+
+      if (!confirmed) {
+        return;
+      }
     try {
       const token = localStorage.getItem("token");
 
@@ -166,6 +180,7 @@ function TripDetailsPage() {
       );
 
       getTrip();
+      toast.success("Activity deleted!");
     } catch (error) {
       console.log(error);
 
@@ -190,6 +205,20 @@ const startEditDestination = (destination) => {
   });
 };  
 
+const startEditActivity = (activity) => {
+  setEditingActivityId(activity.id);
+
+  setActivityTitle(activity.title);
+  setActivityLocation(activity.location);
+  setActivityDescription(activity.description);
+  setEstimatedCost(activity.estimatedCost);
+
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth",
+  });
+};
+
 const updateDestination = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -213,10 +242,10 @@ const updateDestination = async () => {
     );
 
     setEditingDestinationId(null);
-
     setDestinationName("");
     setLocation("");
     setDestinationDescription("");
+    toast.success("Destination updated!");
 
     getTrip();
   } catch (error) {
@@ -224,15 +253,56 @@ const updateDestination = async () => {
   }
 };
 
+const updateActivity = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.put(
+      `https://localhost:7215/api/Activity/${editingActivityId}`,
+      {
+        id: editingActivityId,
+        title: activityTitle,
+        date: "2026-06-03",
+        time: "18:00",
+        location: activityLocation,
+        description: activityDescription,
+        estimatedCost: Number(estimatedCost),
+        status: "Planned",
+        tripId: id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setEditingActivityId(null);
+    setActivityTitle("");
+    setActivityLocation("");
+    setActivityDescription("");
+    setEstimatedCost("");
+    toast.success("Activity updated!");
+
+    getTrip();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const cancelDestinationEdit = () => {
   setEditingDestinationId(null);
-
   setDestinationName("");
-
-  setLocation("");
-
+  setLocation("")
   setDestinationDescription("");
+};
+
+const cancelActivityEdit = () => {
+  setEditingActivityId(null);
+  setActivityTitle("");
+  setActivityLocation("");
+  setActivityDescription("");
+  setEstimatedCost("");
 };
 
   useEffect(() => {
@@ -283,7 +353,7 @@ const cancelDestinationEdit = () => {
             </input>
 
 
-            <div className="card-buttons">
+            <div className="form-buttons">
               {editingDestinationId ? (
               <button onClick={updateDestination}>
                   Save Destination
@@ -297,8 +367,7 @@ const cancelDestinationEdit = () => {
               {editingDestinationId && (
                 <button
                   className="cancel-btn"
-                  onClick={cancelDestinationEdit}
-                >
+                  onClick={cancelDestinationEdit}>
                   Cancel
                 </button>
               )}
@@ -322,14 +391,11 @@ const cancelDestinationEdit = () => {
                     Edit
                 </button>
 
-                <div className="card-buttons">
-                  <button
-                    className="delete-btn"
-                    onClick={() => deleteActivity(activity.id)}
-                  >
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteDestination(destination.id)}>
                     Delete
-                  </button>
-                </div>
+                </button>
               </div>
             </div>
           ))}
@@ -364,9 +430,26 @@ const cancelDestinationEdit = () => {
             onChange={(e) => setEstimatedCost(e.target.value)}>
           </input>
 
-          <button onClick={createActivity}> 
-            Add Activity
-          </button>
+          <div className="form-buttons">
+            {editingActivityId ? (
+              <button onClick={updateActivity}>
+                Save Activity
+              </button>
+            ) : (
+              <button onClick={createActivity}>
+                Add Activity
+              </button>
+            )}
+
+            {editingActivityId && (
+              <button
+                className="cancel-btn"
+                onClick={cancelActivityEdit}
+              >
+                Cancel
+              </button>
+            )}
+          </div>
         </div>
 
 
@@ -377,16 +460,19 @@ const cancelDestinationEdit = () => {
               <h3>🗓️ {activity.title}</h3>
 
               <p>{activity.location}</p>
-
               <p>{activity.description}</p>
-
               <p>Cost: {activity.estimatedCost}</p>
 
               <div className="card-buttons">
                 <button
+                  className="edit-btn"
+                  onClick={() => startEditActivity(activity)}>
+                  Edit
+                </button>
+
+                <button
                   className="delete-btn"
-                  onClick={() => deleteActivity(activity.id)}
-                >
+                  onClick={() => deleteActivity(activity.id)}>
                   Delete
                 </button>
               </div>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import "../App.css";
+import { toast } from "react-toastify";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ function LoginPage() {
     try {
 
       if(!email || !password){
-        alert("Please fill all fields.");
+        toast.error("Please fill all fields.");
 
         return;
       }
@@ -29,12 +29,12 @@ function LoginPage() {
       );
 
       localStorage.setItem("token", response.data.token);
-
+      toast.success("Login successful!");
       navigate("/dashboard");
     } catch (error) {
       console.log(error);
 
-      alert("Login failed.");
+      toast.error("Login failed.");
     }
   };
 

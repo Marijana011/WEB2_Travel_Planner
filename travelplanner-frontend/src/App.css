@@ -168,6 +168,13 @@ button:hover {
   margin-top: auto;
 }
 
+.form-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
 .trip-card .card-buttons button{
   width: 110px;
   height: 52px;

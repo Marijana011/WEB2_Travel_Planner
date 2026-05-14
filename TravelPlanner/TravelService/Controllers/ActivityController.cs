@@ -99,5 +99,28 @@ namespace TravelService.Controllers
 
             return Ok("Activity deleted.");
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateActivity(Guid id, CreateActivityDto dto)
+        {
+            var activity = await _context.Activities.FindAsync(id);
+
+            if (activity == null)
+            {
+                return NotFound();
+            }
+
+            activity.Title = dto.Title;
+            activity.Location = dto.Location;
+            activity.Description = dto.Description;
+            activity.EstimatedCost = dto.EstimatedCost;
+            activity.Date = dto.Date;
+            activity.Time = dto.Time;
+            activity.Status = dto.Status;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
