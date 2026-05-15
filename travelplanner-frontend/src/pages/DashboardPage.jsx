@@ -11,6 +11,8 @@ function DashboardPage() {
   const [budget, setBudget] = useState("");
   const [editingTripId, setEditingTripId] = useState(null);
   const navigate = useNavigate();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const getTrips = async () => {
     try {
@@ -39,7 +41,7 @@ function DashboardPage() {
 
   const createTrip = async () => {
     try {
-      if(!title || !description || !budget){
+      if(!title || !description || !budget || !startDate || !endDate){
         toast.error("Please fill all fields.");
 
         return;
@@ -52,8 +54,8 @@ function DashboardPage() {
         {
           title,
           description,
-          startDate: "2026-06-01",
-          endDate: "2026-06-10",
+          startDate,
+          endDate,
           budget: Number(budget),
           notes: "Created from React",
         },
@@ -67,6 +69,8 @@ function DashboardPage() {
       setTitle("");
       setDescription("");
       setBudget("");
+      setStartDate("");
+      setEndDate("");
       toast.success("Trip created!");
 
       getTrips();
@@ -115,10 +119,12 @@ function DashboardPage() {
 
   const startEditTrip = (trip) => {
     setEditingTripId(trip.id);
-    
+  
     setTitle(trip.title);
     setDescription(trip.description);
     setBudget(trip.budget);
+    setStartDate(trip.startDate.slice(0,10));
+    setEndDate(trip.endDate.slice(0,10));
 
     window.scrollTo({
       top: 0,
@@ -136,8 +142,8 @@ function DashboardPage() {
           id: editingTripId,
           title,
           description,
-          startDate: "2026-06-01",
-          endDate: "2026-06-10",
+          startDate,
+          endDate,
           budget: Number(budget),
           notes: "Updated from React",
         },
@@ -152,6 +158,8 @@ function DashboardPage() {
       setTitle("");
       setDescription("");
       setBudget("");
+      setStartDate("");
+      setEndDate("");
       toast.success("Trip updated!");
 
       getTrips();
@@ -166,6 +174,8 @@ function DashboardPage() {
     setTitle("");
     setDescription("");
     setBudget("");
+    setStartDate("");
+    setEndDate("");
   };
 
   const logout = () => {
@@ -182,7 +192,6 @@ function DashboardPage() {
   useEffect(() => {
     getTrips();
   }, []);
-
 
   return (
     <div className="app">
@@ -209,6 +218,18 @@ function DashboardPage() {
             placeholder="Budget"
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
+          />
+
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
           />
 
           {editingTripId ? (
@@ -242,6 +263,7 @@ function DashboardPage() {
               <p>{trip.description}</p>
 
               <p>Budget: {trip.budget}</p>
+              
 
               <div className="card-buttons">
                 <button

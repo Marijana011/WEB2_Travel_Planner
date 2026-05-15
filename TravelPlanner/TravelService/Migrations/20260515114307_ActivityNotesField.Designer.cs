@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelService.Data;
 
@@ -11,9 +12,11 @@ using TravelService.Data;
 namespace TravelService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260515114307_ActivityNotesField")]
+    partial class ActivityNotesField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,29 +69,6 @@ namespace TravelService.Migrations
                     b.HasIndex("TripId");
 
                     b.ToTable("Activities");
-                });
-
-            modelBuilder.Entity("TravelService.Models.ChecklistItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Completed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("TripId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TripId");
-
-                    b.ToTable("ChecklistItems");
                 });
 
             modelBuilder.Entity("TravelService.Models.Destination", b =>
@@ -164,17 +144,6 @@ namespace TravelService.Migrations
                 {
                     b.HasOne("TravelService.Models.Trip", "Trip")
                         .WithMany("Activities")
-                        .HasForeignKey("TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Trip");
-                });
-
-            modelBuilder.Entity("TravelService.Models.ChecklistItem", b =>
-                {
-                    b.HasOne("TravelService.Models.Trip", "Trip")
-                        .WithMany()
                         .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

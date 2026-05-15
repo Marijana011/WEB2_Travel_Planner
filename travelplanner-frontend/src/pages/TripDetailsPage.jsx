@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../App.css";
@@ -12,12 +12,23 @@ function TripDetailsPage() {
   const [location, setLocation] = useState("");
   const [destinationDescription, setDestinationDescription] = useState("");
   const [editingDestinationId, setEditingDestinationId] = useState(null);
+  const [arrivalDate, setArrivalDate] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
 
   const [activityTitle, setActivityTitle] = useState("");
   const [activityLocation, setActivityLocation] = useState("");  
   const [activityDescription, setActivityDescription] = useState("");
   const [estimatedCost, setEstimatedCost] = useState("");
+  const [notes, setNotes] = useState("");
   const [editingActivityId, setEditingActivityId] = useState(null);
+  const [activityDate, setActivityDate] = useState("");
+  const [activityTime, setActivityTime] = useState("");
+
+  const [checklistItem, setChecklistItem] = useState("");
+  const [checklist, setChecklist] = useState([]);
+
+  const destinationFormRef = useRef(null);
+  const activityFormRef = useRef(null);
 
   const getTrip = async () => {
     try {
@@ -46,7 +57,7 @@ function TripDetailsPage() {
 
   const createDestination = async () => {
     try{
-        if(!destinationName || !location || !destinationDescription){
+        if(!destinationName || !location || !destinationDescription || !arrivalDate || !departureDate){
           toast.error("Please fill all fields.");
 
           return;
@@ -54,13 +65,32 @@ function TripDetailsPage() {
 
         const token = localStorage.getItem("token");
 
+        const tripStart = new Date(trip.startDate);
+        const tripEnd = new Date(trip.endDate);
+        const arrival = new Date(arrivalDate);
+        const departure = new Date(departureDate);
+
+        if(arrival < tripStart || departure > tripEnd) {
+          toast.error("Destination dates must be within trip dates.");
+        
+          return;
+        }
+        
+        if (departure < arrival) {
+          toast.error(
+            "Departure date cannot be before arrival date."
+          );
+
+          return;
+        }
+
         await axios.post(
             "https://localhost:7215/api/Destination",
             {
                 name: destinationName,
                 location: location,
-                arrivalDate: "2026-06-01",
-                departureDate: "2026-06-05",
+                arrivalDate,
+                departureDate,
                 description: destinationDescription,
                 tripId: id,
             },
@@ -70,63 +100,16 @@ function TripDetailsPage() {
                 }
             }
         );
-
         setDestinationName("");
         setLocation("");
         setDestinationDescription("");
+        setArrivalDate("");
+        setDepartureDate("");
         toast.success("Destination added!");
 
         getTrip();
         }catch(error){
             console.log(error);
-        }
-    };
-
-    const createActivity = async () => {
-        try{
-            if(!activityTitle || !activityLocation || !activityDescription){
-              toast.error("Please fill all fields.");
-
-              return;
-            }
-
-
-            const token = localStorage.getItem("token");
-
-            await axios.post(
-                "https://localhost:7215/api/Activity",
-                {
-                    title: activityTitle,
-                    date: "2026-06-03",
-                    time: "18:00",
-                    location: activityLocation,
-                    description: activityDescription,
-                    estimatedCost: Number(estimatedCost),
-                    status: "Planned",
-                    tripId: id,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
-            setActivityTitle("");
-            setActivityLocation("");
-            setActivityDescription("");
-            setEstimatedCost("");
-            toast.success("Activity added!");
-
-            getTrip();
-        }catch (error) {
-            console.log(error);
-
-            if(error.response?.status === 401){
-              localStorage.removeItem("token");
-
-              window.location.href = "/";
-            }
         }
     };
 
@@ -161,63 +144,18 @@ function TripDetailsPage() {
       }
   };
 
-  const deleteActivity = async (activityId) => {
-    const confirmed = window.confirm("Are you sure you want to delete this activity?");
-
-      if (!confirmed) {
-        return;
-      }
-    try {
-      const token = localStorage.getItem("token");
-
-      await axios.delete(
-        `https://localhost:7215/api/Activity/${activityId}`,
-        {
-          headers: {
-          Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      getTrip();
-      toast.success("Activity deleted!");
-    } catch (error) {
-      console.log(error);
-
-      if (error.response?.status === 401) {
-        localStorage.removeItem("token");
-
-        window.location.href = "/";
-      }
-    }
-};
-
 const startEditDestination = (destination) => {
   setEditingDestinationId(destination.id);
-
   setDestinationName(destination.name);
   setLocation(destination.location);
   setDestinationDescription(destination.description);
+  setArrivalDate(destination.arrivalDate.slice(0, 10));
+  setDepartureDate(destination.departureDate.slice(0, 10));
 
-  window.scrollTo({
-    top: 0,
+  destinationFormRef.current?.scrollIntoView({
     behavior: "smooth",
   });
 };  
-
-const startEditActivity = (activity) => {
-  setEditingActivityId(activity.id);
-
-  setActivityTitle(activity.title);
-  setActivityLocation(activity.location);
-  setActivityDescription(activity.description);
-  setEstimatedCost(activity.estimatedCost);
-
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: "smooth",
-  });
-};
 
 const updateDestination = async () => {
   try {
@@ -229,8 +167,8 @@ const updateDestination = async () => {
         id: editingDestinationId,
         name: destinationName,
         location: location,
-        arrivalDate: "2026-06-01",
-        departureDate: "2026-06-05",
+        arrivalDate,
+        departureDate,
         description: destinationDescription,
         tripId: id,
       },
@@ -245,6 +183,8 @@ const updateDestination = async () => {
     setDestinationName("");
     setLocation("");
     setDestinationDescription("");
+    setArrivalDate("");
+    setDepartureDate("");
     toast.success("Destination updated!");
 
     getTrip();
@@ -252,6 +192,111 @@ const updateDestination = async () => {
     console.log(error);
   }
 };
+
+const cancelDestinationEdit = () => {
+  setEditingDestinationId(null);
+  setDestinationName("");
+  setLocation("")
+  setDestinationDescription("");
+  setArrivalDate("");
+  setDepartureDate("");
+};
+
+const createActivity = async () => {
+        try{
+            if(!activityTitle || !activityLocation || !activityDescription || !activityDate || !activityTime || !notes){
+              toast.error("Please fill all fields.");
+
+              return;
+            }
+
+            const token = localStorage.getItem("token");
+
+            const tripStart = new Date(trip.startDate);
+            const tripEnd = new Date(trip.endDate);
+            const activityDay = new Date(activityDate);
+
+            if (
+              activityDay < tripStart ||
+              activityDay > tripEnd
+            ) {
+              toast.error(
+                "Activity date must be within trip dates."
+              );
+
+              return;
+            }
+
+            await axios.post(
+                "https://localhost:7215/api/Activity",
+                {
+                    title: activityTitle,
+                    date: activityDate,
+                    time: activityTime,
+                    location: activityLocation,
+                    description: activityDescription,
+                    estimatedCost: Number(estimatedCost),
+                    notes,
+                    status: "Planned",
+                    tripId: id,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            setActivityTitle("");
+            setActivityLocation("");
+            setActivityDescription("");
+            setEstimatedCost("");
+            setActivityDate("");
+            setActivityTime("");
+            setNotes("");
+            toast.success("Activity added!");
+
+            getTrip();
+        }catch (error) {
+            console.log(error);
+
+            if(error.response?.status === 401){
+              localStorage.removeItem("token");
+
+              window.location.href = "/";
+            }
+        }
+    };
+
+    const deleteActivity = async (activityId) => {
+      const confirmed = window.confirm("Are you sure you want to delete this activity?");
+
+      if (!confirmed) {
+        return;
+      }
+      try {
+        const token = localStorage.getItem("token");
+
+        await axios.delete(
+          `https://localhost:7215/api/Activity/${activityId}`,
+          {
+            headers: {
+            Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        getTrip();
+        toast.success("Activity deleted!");
+      } catch (error) {
+        console.log(error);
+
+        if (error.response?.status === 401) {
+          localStorage.removeItem("token");
+
+          window.location.href = "/";
+        }
+    }
+  };
 
 const updateActivity = async () => {
   try {
@@ -262,11 +307,12 @@ const updateActivity = async () => {
       {
         id: editingActivityId,
         title: activityTitle,
-        date: "2026-06-03",
-        time: "18:00",
+        date: activityDate,
+        time: activityTime,
         location: activityLocation,
         description: activityDescription,
         estimatedCost: Number(estimatedCost),
+        notes,
         status: "Planned",
         tripId: id,
       },
@@ -282,6 +328,9 @@ const updateActivity = async () => {
     setActivityLocation("");
     setActivityDescription("");
     setEstimatedCost("");
+    setActivityDate("");
+    setActivityTime("");
+    setNotes("");
     toast.success("Activity updated!");
 
     getTrip();
@@ -290,11 +339,19 @@ const updateActivity = async () => {
   }
 };
 
-const cancelDestinationEdit = () => {
-  setEditingDestinationId(null);
-  setDestinationName("");
-  setLocation("")
-  setDestinationDescription("");
+const startEditActivity = (activity) => {
+  setEditingActivityId(activity.id);
+  setActivityTitle(activity.title);
+  setActivityLocation(activity.location);
+  setActivityDescription(activity.description);
+  setEstimatedCost(activity.estimatedCost);
+  setActivityDate(activity.date.slice(0, 10));
+  setActivityTime(activity.time);
+  setNotes(activity.notes);
+
+  activityFormRef.current?.scrollIntoView({
+  behavior: "smooth",
+  });
 };
 
 const cancelActivityEdit = () => {
@@ -303,34 +360,216 @@ const cancelActivityEdit = () => {
   setActivityLocation("");
   setActivityDescription("");
   setEstimatedCost("");
+  setActivityDate("");
+  setActivityTime("");
+  setNotes("");
+};
+
+
+const addChecklistItem = async () => {
+      if (!checklistItem) {
+        return;
+      }
+      const token = localStorage.getItem("token");
+      await axios.post(
+        "https://localhost:7215/api/Checklist",
+        {
+          text: checklistItem,
+          tripId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setChecklistItem("");
+      getChecklist();
+    };
+
+    const getChecklist = async () => {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(
+        `https://localhost:7215/api/Checklist/trip/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setChecklist(response.data);
+  };
+
+const toggleChecklistItem = async (id) => {
+  const token = localStorage.getItem("token");
+  await axios.put(
+    `https://localhost:7215/api/Checklist/${id}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  getChecklist();
 };
 
   useEffect(() => {
     getTrip();
+    getChecklist();
   }, []);
 
   if (!trip) {
     return <h1>Loading...</h1>;
   }
 
+  const groupActivities = trip.activities.reduce(
+  (groups, activity) => {
+    const date = activity.date.slice(0,10);
+
+    if(!groups[date]){
+      groups[date] = [];
+    }
+
+    groups[date].push(activity);
+    return groups;
+  },
+  {}
+);
+
+const totalSpent = trip.activities.reduce((sum, activity) =>sum + activity.estimatedCost, 0);
+const remainingBudget = trip.budget - totalSpent;
+
   return (
     <div className="app">
       <div className="container">
         <h1 className="title">✈️ {trip.title}</h1>
-        
-
-        <div className="trip-card trip-summary">
-          <p>{trip.description}</p>
-
-          <p>Budget: {trip.budget}</p>
-
-          <p>
-            {trip.startDate.slice(0, 10)} -{" "}
-            {trip.endDate.slice(0, 10)}
-          </p>
+        <div className="overview-section">
+          <div className="trip-card trip-summary">
+            <p>{trip.description}</p>
+            <p>Budget: {trip.budget}</p>
+            <p>💸 Spent: {totalSpent}</p>
+            <p>💰 Remaining: {remainingBudget}</p>
+            <p className="date-text">
+              📅 {trip.startDate.slice(0, 10)} → {" "}
+              {trip.endDate.slice(0, 10)}
+            </p>
+          </div>
+         
+        <div className="trip-card checklist-container">
+          <h2 className="checklist-title">📝 Reminder List</h2>
+          {checklist.map((item) => (
+            <label
+              key={item.id}
+              className="checklist-item">              
+              <input
+                type="checkbox"
+                checked={item.completed}
+                onChange={() =>
+                  toggleChecklistItem(item.id)}/>
+              <span>{item.text}</span>
+            </label>
+          ))}
         </div>
 
+        <div className="trip-card notes-container">
+          <h2 className="checklist-title">📝 Activity Notes</h2>
+          {trip.activities.filter((a) => a.notes).map((activity) => (
+            <div key={activity.id} className="note-item">
+              <p><strong>{activity.title}</strong> : {activity.notes}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    
+        
+        <h2 className="section-title">Destinations</h2>
+        <div className="trip-grid">
+          {trip.destinations.map((destination) => (
+            <div key={destination.id} className="trip-card trip-summary">
+              <h3><span className="emoji">📍</span> {destination.name}</h3>
+
+              <p>{destination.location}</p>
+              <p>{destination.description}</p>
+              <p className="date-text">
+                  📅 {destination.arrivalDate.slice(0, 10)} →{" "}
+                  {destination.departureDate.slice(0, 10)}
+              </p>
+
+              <div className="card-buttons">
+                <button
+                  className="edit-btn"
+                  onClick={() => startEditDestination(destination)}>
+                    Edit
+                </button>
+
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteDestination(destination.id)}>
+                    Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="activities-section">   
+          <h2 className="section-title">Activities</h2>
+          {Object.entries(groupActivities).map(([date, activities]) => (
+          <div key={date} >
+            <h3 className="activity-date-heading">🗓️ {
+                new Date(date).toLocaleDateString("en-US",{ weekday: "long" })
+                } • {date}</h3>
+
+            <div className="activities-grid">{activities.sort((a, b) =>
+              a.time.localeCompare(b.time)).map((activity) => (
+              <div key={activity.id}className="trip-card activity-card">
+                
+                <h3>{activity.title}</h3>
+                <p className="date-text">🕒 {activity.time}</p>
+                <p>{activity.location}</p>
+                <p>{activity.description}</p>
+                <p>Cost: {activity.estimatedCost}</p>
+                <p>📝 {activity.notes}</p>
+                
+                <div className="card-buttons">
+                  <button className="edit-btn"
+                    onClick={() => startEditActivity(activity)}>
+                    Edit
+                  </button>
+
+                  <button className="delete-btn"
+                    onClick={() => deleteActivity(activity.id)}>
+                    Delete
+                  </button>
+                  </div>
+                </div>
+                ))}
+              
+                </div>
+              </div>
+            ))}
+          </div> 
+
+        <h2 className="section-title">Packing Checklist</h2>
         <div className="form-section">
+          <input
+            type="text"
+            placeholder="Add checklist item"
+            value={checklistItem}
+            onChange={(e) =>
+              setChecklistItem(e.target.value)
+            }
+          />
+          <button onClick={addChecklistItem}>
+            Add Item
+          </button>
+        </div>
+
+        <h2 className="section-title">{editingDestinationId
+          ? "Edit Destination" : "Add Destination"}</h2>
+        <div className="form-section" ref={destinationFormRef}>
             <input 
                 type="text"
                 placeholder="Destination name"
@@ -352,6 +591,19 @@ const cancelActivityEdit = () => {
                 onChange={(e) => setDestinationDescription(e.target.value)}>
             </input>
 
+            <input
+              type="date"
+              min={trip.startDate.slice(0,10)}
+              max={trip.endDate.slice(0,10)}
+              value={arrivalDate}
+              onChange={(e) => setArrivalDate(e.target.value)}
+            />
+
+            <input
+              type="date"
+              value={departureDate}
+              onChange={(e) => setDepartureDate(e.target.value)}
+            />
 
             <div className="form-buttons">
               {editingDestinationId ? (
@@ -374,34 +626,9 @@ const cancelActivityEdit = () => {
             </div>
         </div>
 
-        <h2 className="section-title">Destinations</h2>
-        <div className="trip-grid">
-          {trip.destinations.map((destination) => (
-            <div key={destination.id} className="trip-card trip-summary">
-              <h3><span className="emoji">📍</span> {destination.name}</h3>
-
-              <p>{destination.location}</p>
-
-              <p>{destination.description}</p>
-
-              <div className="card-buttons">
-                <button
-                  className="edit-btn"
-                  onClick={() => startEditDestination(destination)}>
-                    Edit
-                </button>
-
-                <button
-                  className="delete-btn"
-                  onClick={() => deleteDestination(destination.id)}>
-                    Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="form-section"> 
+        <h2 className="section-title">{editingActivityId
+          ? "Edit Activity" : "Add Activity"}</h2>
+        <div className="form-section" ref={activityFormRef}> 
           <input
             type="text"
             placeholder="Activity title"
@@ -430,6 +657,27 @@ const cancelActivityEdit = () => {
             onChange={(e) => setEstimatedCost(e.target.value)}>
           </input>
 
+          <input
+            type="date"
+            value={activityDate}
+            min={trip.startDate.slice(0, 10)}
+            max={trip.endDate.slice(0, 10)}
+            onChange={(e) => setActivityDate(e.target.value)}
+          />
+
+          <input
+            type="time"
+            value={activityTime}
+            onChange={(e) => setActivityTime(e.target.value)}
+          />
+
+          <input
+            type="text"
+            placeholder="Notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
+
           <div className="form-buttons">
             {editingActivityId ? (
               <button onClick={updateActivity}>
@@ -452,34 +700,7 @@ const cancelActivityEdit = () => {
           </div>
         </div>
 
-
-        <h2 className="section-title">Activities</h2>
-        <div className="trip-grid">
-          {[...trip.activities].reverse().map((activity) => (
-            <div key={activity.id} className="trip-card trip-summary">
-              <h3>🗓️ {activity.title}</h3>
-
-              <p>{activity.location}</p>
-              <p>{activity.description}</p>
-              <p>Cost: {activity.estimatedCost}</p>
-
-              <div className="card-buttons">
-                <button
-                  className="edit-btn"
-                  onClick={() => startEditActivity(activity)}>
-                  Edit
-                </button>
-
-                <button
-                  className="delete-btn"
-                  onClick={() => deleteActivity(activity.id)}>
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
         </div>
-      </div>
     </div>
   );
 }

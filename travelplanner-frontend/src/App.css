@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+#root {
+  width: 100%;
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -39,7 +43,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  width: 650px;
+  width: 100%;
+  max-width: 650px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
 }
 
@@ -130,19 +135,13 @@ button:hover {
   margin-bottom: 20px;
   text-align: center;
   font-size: 32px;
-  min-height: 70px;
+  min-height: 50px;
 }
 
 .trip-card p {
   color: #334155;
   line-height: 1.7;
   font-weight: 500;
-}
-
-.trip-summary {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  max-width: 450px;
 }
 
 .logout-btn {
@@ -200,3 +199,86 @@ button:hover {
   box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
 }
 
+.date-text {
+  margin-top: 14px;
+  padding: 10px 14px;
+  color: #1e293b;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+
+.activity-card {
+  width: 270px;
+  flex-shrink: 0;
+  padding: 18px;
+}
+
+.activity-card h3 {
+  font-size: 24px;
+  min-height: auto;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.activities-section {
+  width: 100%;
+}
+
+.activities-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.trip-summary {
+  width: 330px;
+}
+
+.overview-section {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.checklist-container {
+    margin-bottom: 40px;
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    gap: 15px;
+}
+
+.checklist-title {
+  margin-top: 10px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  padding: 5px 5px;
+  border-radius: 14px;
+}
+
+.notes-container {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.note-item {
+  padding: 5px;
+  border-radius: 14px;
+}

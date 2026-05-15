@@ -16,6 +16,8 @@
 
         public decimal EstimatedCost { get; set; }
 
+        public string Notes { get; set; } = string.Empty;
+
         public string Status { get; set; } = "Planned";
 
         public Guid TripId { get; set; }

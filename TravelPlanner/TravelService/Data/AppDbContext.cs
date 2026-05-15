@@ -11,6 +11,7 @@ namespace TravelService.Data
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<Activity> Activities { get; set; }
 
+        public DbSet<ChecklistItem> ChecklistItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

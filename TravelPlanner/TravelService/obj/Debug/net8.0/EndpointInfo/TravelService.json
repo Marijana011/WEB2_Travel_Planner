@@ -122,6 +122,83 @@
         }
       }
     },
+    "/api/Checklist/trip/{tripId}": {
+      "get": {
+        "tags": [
+          "Checklist"
+        ],
+        "parameters": [
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Checklist": {
+      "post": {
+        "tags": [
+          "Checklist"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChecklistDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChecklistDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChecklistDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Checklist/{id}": {
+      "put": {
+        "tags": [
+          "Checklist"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Destination/{tripId}": {
       "get": {
         "tags": [
@@ -394,7 +471,28 @@
             "type": "number",
             "format": "double"
           },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
           "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "tripId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateChecklistDto": {
+        "type": "object",
+        "properties": {
+          "completed": {
+            "type": "boolean"
+          },
+          "text": {
             "type": "string",
             "nullable": true
           },
