@@ -1,6 +1,7 @@
 ﻿using AuthService.Data;
 using AuthService.DTOs;
 using AuthService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -37,7 +38,8 @@ namespace AuthService.Controllers
                 Id = Guid.NewGuid(),
                 Name = dto.Name,
                 Email = dto.Email,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password)
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                Role = "User"
             };
 
             _context.Users.Add(user);
@@ -89,6 +91,15 @@ namespace AuthService.Controllers
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token)
             });
+        }
+
+        [Authorize(Roles ="Admin")]
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _context.Users.ToListAsync();
+
+            return Ok(users);
         }
 
     }

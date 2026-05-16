@@ -20,6 +20,8 @@
 
         public string Status { get; set; } = "Planned";
 
+        public string Category { get; set; } = "Other";
+
         public Guid TripId { get; set; }
 
         [System.Text.Json.Serialization.JsonIgnore]

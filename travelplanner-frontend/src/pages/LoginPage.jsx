@@ -3,23 +3,24 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const [isRegister, setIsRegister] = useState(false);
 
   const navigate = useNavigate();
 
   const login = async () => {
     try {
-
       if(!email || !password){
         toast.error("Please fill all fields.");
 
         return;
       }
-
       const response = await axios.post(
         "https://localhost:7023/api/Auth/login",
         {
@@ -27,7 +28,6 @@ function LoginPage() {
           password,
         }
       );
-
       localStorage.setItem("token", response.data.token);
       toast.success("Login successful!");
       navigate("/dashboard");
@@ -38,10 +38,32 @@ function LoginPage() {
     }
   };
 
+  const register = async () => {
+    await axios.post(
+      "https://localhost:7023/api/Auth/register",
+      {
+        name, 
+        email,
+        password
+      }
+    );
+    
+    toast.success("Account created!");
+    setIsRegister(false);
+  };
+
   return (
     <div className="app">
       <div className="container">
         <h1 className="title">Travel Planner</h1>
+        {isRegister && (
+          <input 
+            type="text" 
+            placeholder="Name" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)}>
+          </input>
+        )}
 
         <div className="form-section">
           <input
@@ -59,6 +81,9 @@ function LoginPage() {
           />
 
           <button onClick={login}>Login</button>
+
+          <Link to="/register">Don't have an account? Register</Link>
+          
         </div>
       </div>
     </div>

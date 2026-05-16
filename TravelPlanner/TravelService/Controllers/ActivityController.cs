@@ -73,6 +73,7 @@ namespace TravelService.Controllers
                 EstimatedCost = dto.EstimatedCost,
                 Status = dto.Status,
                 Notes = dto.Notes,
+                Category = dto.Category,
                 TripId = dto.TripId
             };
 
@@ -119,6 +120,7 @@ namespace TravelService.Controllers
             activity.Time = dto.Time;
             activity.Status = dto.Status;
             activity.Notes = dto.Notes;
+            activity.Category = dto.Category;
 
             await _context.SaveChangesAsync();
 

@@ -479,6 +479,10 @@
             "type": "string",
             "nullable": true
           },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
           "tripId": {
             "type": "string",
             "format": "uuid"

@@ -23,9 +23,12 @@ function TripDetailsPage() {
   const [editingActivityId, setEditingActivityId] = useState(null);
   const [activityDate, setActivityDate] = useState("");
   const [activityTime, setActivityTime] = useState("");
+  const [category, setCategory] = useState("Other");
 
   const [checklistItem, setChecklistItem] = useState("");
   const [checklist, setChecklist] = useState([]);
+
+  const [status, setStatus] = useState("Planned");
 
   const destinationFormRef = useRef(null);
   const activityFormRef = useRef(null);
@@ -237,7 +240,8 @@ const createActivity = async () => {
                     description: activityDescription,
                     estimatedCost: Number(estimatedCost),
                     notes,
-                    status: "Planned",
+                    status,
+                    category,
                     tripId: id,
                 },
                 {
@@ -246,7 +250,6 @@ const createActivity = async () => {
                     },
                 }
             );
-
             setActivityTitle("");
             setActivityLocation("");
             setActivityDescription("");
@@ -313,7 +316,8 @@ const updateActivity = async () => {
         description: activityDescription,
         estimatedCost: Number(estimatedCost),
         notes,
-        status: "Planned",
+        status,
+        category,
         tripId: id,
       },
       {
@@ -483,7 +487,6 @@ const remainingBudget = trip.budget - totalSpent;
         </div>
       </div>
     
-        
         <h2 className="section-title">Destinations</h2>
         <div className="trip-grid">
           {trip.destinations.map((destination) => (
@@ -530,8 +533,10 @@ const remainingBudget = trip.budget - totalSpent;
                 <p className="date-text">🕒 {activity.time}</p>
                 <p>{activity.location}</p>
                 <p>{activity.description}</p>
-                <p>Cost: {activity.estimatedCost}</p>
+                <p>Cost: {activity.estimatedCost} {" → "} {activity.category}</p>
+                <p>📌 {activity.status}</p>
                 <p>📝 {activity.notes}</p>
+                
                 
                 <div className="card-buttons">
                   <button className="edit-btn"
@@ -677,6 +682,22 @@ const remainingBudget = trip.budget - totalSpent;
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
+
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="Planned">Planned</option>
+            <option value="Reserved">Reserved</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="Transport">Transport</option>
+            <option value="Accommodation">Accommodation</option>
+            <option value="Food">Food</option>
+            <option value="Tickets">Tickets</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Other">Other</option>
+          </select>
 
           <div className="form-buttons">
             {editingActivityId ? (
