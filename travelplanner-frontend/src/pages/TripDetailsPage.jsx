@@ -3,9 +3,17 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../App.css";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { QRCodeCanvas } from "qrcode.react";
+import jsPDF from "jspdf";
 
 function TripDetailsPage() {
+  const [shareLink, setShareLink] = useState("");
+  const [shareAccess, setShareAccess] = useState("VIEW");
+
   const { id } = useParams();
+  const { userId } = useParams();
 
   const [trip, setTrip] = useState(null);
   const [destinationName, setDestinationName] = useState("");
@@ -32,6 +40,128 @@ function TripDetailsPage() {
 
   const destinationFormRef = useRef(null);
   const activityFormRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const createShareLink = async () => {
+  try {
+    const response =
+      await axios.post(
+        `https://localhost:7215/api/Share/create?tripId=${id}&accessType=${shareAccess}`
+      );
+
+    setShareLink(
+      response.data.link
+    );
+    toast.success(
+      "Share link created!"
+    );
+  } catch (error) {
+
+    console.log(error);
+
+    toast.error(
+      "Failed to create share link."
+    );
+  }
+};
+
+
+const generatePdf = () => {
+
+  const doc = new jsPDF();
+
+  doc.setFontSize(22);
+
+  doc.text(
+    trip.title,
+    20,
+    20
+  );
+
+  doc.setFontSize(14);
+
+  doc.text(
+    trip.description,
+    20,
+    35
+  );
+
+  doc.text(
+    `Budget: ${trip.budget}`,
+    20,
+    50
+  );
+
+  doc.text(
+    `Dates: ${
+      trip.startDate.slice(0,10)
+    } - ${
+      trip.endDate.slice(0,10)
+    }`,
+    20,
+    60
+  );
+
+  let y = 80;
+
+  doc.setFontSize(18);
+
+  doc.text(
+    "Destinations",
+    20,
+    y
+  );
+
+  y += 10;
+
+  trip.destinations.forEach(
+    (destination) => {
+
+    doc.setFontSize(12);
+
+    doc.text(
+      `• ${destination.name}
+       - ${destination.location}`,
+      20,
+      y
+    );
+
+    y += 10;
+  });
+
+  y += 10;
+
+  doc.setFontSize(18);
+
+  doc.text(
+    "Activities",
+    20,
+    y
+  );
+
+  y += 10;
+
+  trip.activities.forEach(
+    (activity) => {
+
+    doc.setFontSize(12);
+
+    doc.text(
+      `• ${activity.title}
+       (${activity.time})`,
+      20,
+      y
+    );
+
+    y += 10;
+  });
+
+  doc.save(
+    `${trip.title}.pdf`
+  );
+};
+
 
   const getTrip = async () => {
     try {
@@ -442,6 +572,12 @@ const toggleChecklistItem = async (id) => {
   {}
 );
 
+const token = localStorage.getItem("token");
+const decoded = jwtDecode(token);
+const role = decoded[
+    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+const isAdminView = role === "Admin" && window.location.search.includes("admin=true");
+
 const totalSpent = trip.activities.reduce((sum, activity) =>sum + activity.estimatedCost, 0);
 const remainingBudget = trip.budget - totalSpent;
 
@@ -451,15 +587,61 @@ const remainingBudget = trip.budget - totalSpent;
         <h1 className="title">✈️ {trip.title}</h1>
         <div className="overview-section">
           <div className="trip-card trip-summary">
+          
             <p>{trip.description}</p>
             <p>Budget: {trip.budget}</p>
             <p>💸 Spent: {totalSpent}</p>
             <p>💰 Remaining: {remainingBudget}</p>
             <p className="date-text">
               📅 {trip.startDate.slice(0, 10)} → {" "}
-              {trip.endDate.slice(0, 10)}
-            </p>
+              {trip.endDate.slice(0, 10)}</p>
+            {!isAdminView && (
+            <>
+            <div className="share-inline">
+              <select
+                value={shareAccess}
+                onChange={(e) =>
+                  setShareAccess(e.target.value)}>
+                <option value="VIEW">
+                  VIEW
+                </option>
+
+                <option value="EDIT">
+                  EDIT
+                </option>
+              </select>
+            <span
+              className="share-link-btn"
+              onClick={createShareLink}>
+              📱 Scan QR code 
+            </span>
           </div>
+
+          {shareLink && (
+            <>           
+            <div className="qr-wrapper">
+              <QRCodeCanvas value={shareLink} size={120}/>
+            </div>
+            <a
+              href={shareLink}
+              target="_blank"
+              rel="noreferrer"
+              className="open-shared-btn"
+            >
+              Open Shared Trip
+            </a>
+
+            <button
+              className="cancel-qr-btn"
+              onClick={() =>
+                setShareLink("")}>
+              ✕ Close
+            </button>
+          </>
+          )}
+      </>
+      )}
+      </div>
          
         <div className="trip-card checklist-container">
           <h2 className="checklist-title">📝 Reminder List</h2>
@@ -470,6 +652,7 @@ const remainingBudget = trip.budget - totalSpent;
               <input
                 type="checkbox"
                 checked={item.completed}
+                disabled={isAdminView}
                 onChange={() =>
                   toggleChecklistItem(item.id)}/>
               <span>{item.text}</span>
@@ -501,17 +684,20 @@ const remainingBudget = trip.budget - totalSpent;
               </p>
 
               <div className="card-buttons">
-                <button
-                  className="edit-btn"
-                  onClick={() => startEditDestination(destination)}>
-                    Edit
-                </button>
-
+                {!isAdminView && (
+                  <button
+                    className="edit-btn"
+                    onClick={() => startEditDestination(destination)}>
+                      Edit
+                  </button>
+                )}
+                
                 <button
                   className="delete-btn"
                   onClick={() => deleteDestination(destination.id)}>
                     Delete
                 </button>
+                
               </div>
             </div>
           ))}
@@ -539,15 +725,16 @@ const remainingBudget = trip.budget - totalSpent;
                 
                 
                 <div className="card-buttons">
+                  {!isAdminView && (
                   <button className="edit-btn"
                     onClick={() => startEditActivity(activity)}>
                     Edit
                   </button>
-
+                  )}                  
                   <button className="delete-btn"
                     onClick={() => deleteActivity(activity.id)}>
                     Delete
-                  </button>
+                  </button>                 
                   </div>
                 </div>
                 ))}
@@ -557,8 +744,10 @@ const remainingBudget = trip.budget - totalSpent;
             ))}
           </div> 
 
-        <h2 className="section-title">Packing Checklist</h2>
+        
+        {!isAdminView && (
         <div className="form-section">
+          <h2 className="section-title">Packing Checklist</h2>
           <input
             type="text"
             placeholder="Add checklist item"
@@ -571,10 +760,12 @@ const remainingBudget = trip.budget - totalSpent;
             Add Item
           </button>
         </div>
-
-        <h2 className="section-title">{editingDestinationId
-          ? "Edit Destination" : "Add Destination"}</h2>
+        )}
+        
+        {!isAdminView && (
         <div className="form-section" ref={destinationFormRef}>
+          <h2 className="section-title">{editingDestinationId
+          ? "Edit Destination" : "Add Destination"}</h2>
             <input 
                 type="text"
                 placeholder="Destination name"
@@ -630,10 +821,13 @@ const remainingBudget = trip.budget - totalSpent;
               )}
             </div>
         </div>
+        )}
 
+        
+        {!isAdminView && (
+        <div className="form-section" ref={activityFormRef}> 
         <h2 className="section-title">{editingActivityId
           ? "Edit Activity" : "Add Activity"}</h2>
-        <div className="form-section" ref={activityFormRef}> 
           <input
             type="text"
             placeholder="Activity title"
@@ -719,6 +913,18 @@ const remainingBudget = trip.budget - totalSpent;
               </button>
             )}
           </div>
+        </div>
+        )}
+
+        <button className="pdf-btn" onClick={generatePdf}>
+          📄 Download PDF</button>
+
+        <div className="back-container">
+          <button
+            className="back-btn"
+            onClick={() => navigate(-1)}>
+            ← Back to Dashboard
+          </button>
         </div>
 
         </div>

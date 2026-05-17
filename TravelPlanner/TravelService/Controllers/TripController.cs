@@ -129,17 +129,43 @@ namespace TravelService.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            var role = User.FindFirstValue(ClaimTypes.Role);
+
             var trip = await _context.Trips
                 .Include(t => t.Destinations)
                 .Include(t => t.Activities)
-                .FirstOrDefaultAsync(x => x.Id == id && x.UserId.ToString() == userId);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (trip == null)
             {
                 return NotFound();
             }
 
+            if(trip.UserId.ToString() != userId && role != "Admin")
+            {
+                return Forbid();
+            }
+
             return Ok(trip);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllTrips()
+        {
+            var trips = await _context.Trips.ToListAsync();
+
+            return Ok(trips);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetTripsByUser(Guid userId)
+        {
+            var trips = await _context.Trips.Where(
+                x => x.UserId == userId).ToListAsync();
+        
+            return Ok(trips);
         }
     }
 }

@@ -186,6 +186,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TravelService.Controllers.ShareController",
+    "Method": "GetSharedTrip",
+    "RelativePath": "api/Share/{token}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelService.Controllers.ShareController",
+    "Method": "CreateShareLink",
+    "RelativePath": "api/Share/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tripId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "accessType",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TravelService.Controllers.TripController",
     "Method": "GetTrips",
     "RelativePath": "api/Trip",
@@ -258,6 +295,32 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelService.Controllers.TripController",
+    "Method": "GetAllTrips",
+    "RelativePath": "api/Trip/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelService.Controllers.TripController",
+    "Method": "GetTripsByUser",
+    "RelativePath": "api/Trip/user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
         "Type": "System.Guid",
         "IsRequired": true
       }

@@ -28,6 +28,46 @@ a:hover {
   padding: 40px;
 }
 
+.role-badge {
+  background: rgba(255,255,255,0.25);
+  padding: 10px 18px;
+  border-radius: 18px;
+  font-weight: 600;
+  color: white;
+  backdrop-filter: blur(10px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.user-info button {
+  padding: 10px 18px;
+  font-size: 14px;
+  background: #f0d9ab;
+}
+
+.admin-users {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.admin-user-card {
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -349,4 +389,155 @@ button:hover {
 .note-item {
   padding: 5px;
   border-radius: 14px;
+}
+
+.back-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  width: 200px;
+  background: #5582eb;
+}
+
+.logout-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  width: 260px;
+}
+
+.share-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.share-inline select {
+  width: 100px;
+  padding: 6px;
+  font-size: 13px;
+}
+
+.share-link-btn {
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.share-link-btn:hover {
+  opacity: 0.8;
+}
+
+.generated-link {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  background: rgba(255,255,255,0.35);
+  border-radius: 12px;
+  padding: 2px 2px;
+  font-size: 14px;
+  color: #1e3a8a;
+  word-break: break-all;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.generated-link span:first-child {
+  flex: 1;
+}
+
+.copy-icon {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.copy-icon:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+.add-checklist-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: 300;
+  color: white;
+  transition: 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.add-checklist-btn:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.5);
+}
+
+.shared-edit-section {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.shared-edit-section input {
+  flex: 1;
+  max-width: 150px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 13px;
+}
+
+.shared-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.small-add-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.small-cancel-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  padding: 0;
+  font-size: 16px;
+  background: #ef4444;
+}
+
+.cancel-qr-btn {
+  margin-top: 10px;
+  background: #ef4444;
+  font-size: 13px;
+  padding: 8px 14px;
+}
+
+.pdf-btn {
+  margin-top: 20px;
 }

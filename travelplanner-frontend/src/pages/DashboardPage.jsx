@@ -3,6 +3,9 @@ import axios from "axios";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
+import { useParams } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 
 function DashboardPage() {
   const [trips, setTrips] = useState([]);
@@ -14,12 +17,30 @@ function DashboardPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  const name = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+  const email = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+
+  const [viewedUser, setViewedUser] = useState(null);
+  const location = useLocation();
+  const viewedUserName = location.state?.viewedUserName;
+  const params =new URLSearchParams(window.location.search);
+  const isAdminView = params.get("admin") === "true";
+
+  const { userId } = useParams();
+
   const getTrips = async () => {
     try {
       const token = localStorage.getItem("token");
 
+      const endpoint = userId
+      ? `https://localhost:7215/api/Trip/user/${userId}`
+      : "https://localhost:7215/api/Trip";
+
       const response = await axios.get(
-        "https://localhost:7215/api/Trip",
+        endpoint,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,9 +54,9 @@ function DashboardPage() {
 
       if(error.response?.status === 401){
         localStorage.removeItem("token");
-
         window.location.href = "/";
       }
+      toast.error("Failed to load trips.");
     }
   };
 
@@ -43,10 +64,8 @@ function DashboardPage() {
     try {
       if(!title || !description || !budget || !startDate || !endDate){
         toast.error("Please fill all fields.");
-
         return;
       }
-
       const token = localStorage.getItem("token");
 
       await axios.post(
@@ -198,39 +217,55 @@ function DashboardPage() {
       <div className="container">
         <h1 className="title">My Trips</h1>
 
+        <div className="user-info">
+
+          <div className="role-badge">
+            {userId
+              ? `👤 ${viewedUserName}`
+              : `${role === "Admin"
+                  ? "👑 Admin"
+                  : "👤 User"} • ${name}`}
+          </div>
+
+          {role === "Admin" && (
+          <button
+            onClick={() =>
+              navigate("/admin")}>
+            👑 Admin Panel
+          </button>
+          )}
+
+        </div>
+        
+        {!isAdminView && (
         <div className="form-section">
           <input
             type="text"
             placeholder="Trip title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+            onChange={(e) => setTitle(e.target.value)}/>
 
           <input
             type="text"
             placeholder="Description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+            onChange={(e) => setDescription(e.target.value)}/>
 
           <input
             type="number"
             placeholder="Budget"
             value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-          />
+            onChange={(e) => setBudget(e.target.value)}/>
 
           <input
             type="date"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
+            onChange={(e) => setStartDate(e.target.value)}/>
 
           <input
             type="date"
             value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
+            onChange={(e) => setEndDate(e.target.value)}/>
 
           {editingTripId ? (
             <button onClick={updateTrip}>
@@ -249,22 +284,20 @@ function DashboardPage() {
               Cancel
           </button>
           )}
-
-          <button className="logout-btn" onClick={logout}>
-            Logout
-          </button>
-        </div>
+          </div>
+        )}
 
         <div className="trip-grid">
           {trips.map((trip) => (
-            <div key={trip.id} className="trip-card" onClick={() => navigate(`/trip/${trip.id}`)}>
+            <div key={trip.id} className="trip-card" 
+            onClick={() => navigate(isAdminView 
+              ? `/trip/${trip.id}?admin=true`
+              : `/trip/${trip.id}`)}>
               <h3>{trip.title}</h3>
-
               <p>{trip.description}</p>
-
               <p>Budget: {trip.budget}</p>
               
-
+              {!isAdminView && (
               <div className="card-buttons">
                 <button
                   className="edit-btn"
@@ -286,10 +319,20 @@ function DashboardPage() {
                 >
                   Delete
                 </button>
-              </div>
-            </div>
+              </div>  
+                         
+              )}
+            </div>            
           ))}
         </div>
+        
+      </div>
+      <div className="logout-container">
+        <button
+          className="logout-btn"
+          onClick={logout}>
+          Logout
+        </button>
       </div>
     </div>
   );

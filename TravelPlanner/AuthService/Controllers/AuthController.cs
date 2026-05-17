@@ -70,6 +70,7 @@ namespace AuthService.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
@@ -97,7 +98,13 @@ namespace AuthService.Controllers
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.Select(x => new
+            {
+                x.Id,
+                x.Name,
+                x.Email,
+                x.Role
+            }).ToListAsync();
 
             return Ok(users);
         }

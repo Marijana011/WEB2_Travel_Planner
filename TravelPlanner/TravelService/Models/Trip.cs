@@ -14,5 +14,7 @@ namespace TravelService.Models
         public Guid UserId { get; set; }
         public List<Destination> Destinations { get; set; } = new();
         public List<Activity> Activities { get; set; } = new();
+
+        public ICollection<ChecklistItem> ChecklistItems { get; set; }
     }
 }
