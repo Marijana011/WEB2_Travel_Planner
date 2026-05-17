@@ -28,6 +28,7 @@ namespace TravelService.Controllers
 
             var trips = await _context.Trips
                 .Where(x => x.UserId.ToString() == userId)
+                .OrderByDescending(x => x.StartDate)
                 .ToListAsync();
 
             return Ok(trips);

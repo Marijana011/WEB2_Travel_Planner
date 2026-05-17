@@ -54,39 +54,52 @@ function LoginPage() {
 
   return (
     <div className="app">
-      <div className="container">
-        <h1 className="title">Travel Planner</h1>
-        {isRegister && (
-          <input 
-            type="text" 
-            placeholder="Name" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)}>
-          </input>
-        )}
+      <div className="auth-page">
+        <div className="auth-left">
 
-        <div className="form-section">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <h1>
+            Explore The World
+          </h1>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <p>
+            Plan your perfect trip.
+          </p>
 
-          <button onClick={login}>Login</button>
-
-          <Link to="/register">Don't have an account? Register</Link>
-          
         </div>
+
+        <div className="auth-right">
+          <h1 className="auth-title">Travel Planner</h1>
+          <div className="form-section">
+            {isRegister && (
+                <input 
+                  type="text" 
+                  placeholder="Name" 
+                  value={name} 
+                  onChange={(e) => setName(e.target.value)}>
+                </input>
+             )}
+
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button onClick={login}>Login</button>
+            <Link to="/register">Don't have an account? Register</Link>
+        
+          </div>
       </div>
     </div>
+  </div>
   );
 }
 

@@ -36,8 +36,7 @@ function RegisterPage() {
       navigate("/");
 
     } catch (error) {
-
-      toast.error(
+      toast.error( error.response?.data ||
         "Registration failed."
       );
     }
@@ -45,52 +44,52 @@ function RegisterPage() {
 
   return (
     <div className="app">
-      <div className="container">
+        <div className="auth-page">
+          <div className="auth-left">
+            <h1>Explore The World</h1>
+            <p>Plan your perfect trip.</p>
+          </div>
 
-        <h1 className="title">
-          Create Account
-        </h1>
+          <div className="auth-right">
+            <div className="auth-form-wrapper">
 
-        <div className="form-section">
+                <h1 className="titauth-title">
+                  Create Account
+                </h1>
 
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-          />
+                <div className="form-section">
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-          />
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}/>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-          />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}/>
 
-          <button onClick={register}>
-            Register
-          </button>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}/>
+        
+                  <button onClick={register}>
+                    Register
+                  </button>
 
-          <Link to="/">
-            Already have an account? Login
-          </Link>
+                  <Link to="/">
+                    Already have an account? Login
+                  </Link>
 
+                </div>
+              </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </div>        
   );
 }
 

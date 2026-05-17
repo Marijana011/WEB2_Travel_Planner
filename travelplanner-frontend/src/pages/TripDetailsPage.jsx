@@ -797,6 +797,8 @@ const remainingBudget = trip.budget - totalSpent;
 
             <input
               type="date"
+              min={arrivalDate || trip.startDate.slice(0,10)}
+              max={trip.endDate.slice(0,10)}
               value={departureDate}
               onChange={(e) => setDepartureDate(e.target.value)}
             />

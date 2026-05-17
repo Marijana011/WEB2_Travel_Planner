@@ -66,6 +66,20 @@ function DashboardPage() {
         toast.error("Please fill all fields.");
         return;
       }
+
+      if(Number(budget) < 0){
+        toast.error(
+          "Budget cannot be negative."
+        );
+        return;
+      }
+
+      if(endDate < startDate) {
+        toast.error("End date cannot be before start date.");
+
+        return;
+      }
+
       const token = localStorage.getItem("token");
 
       await axios.post(
@@ -84,7 +98,6 @@ function DashboardPage() {
           },
         }
       );
-
       setTitle("");
       setDescription("");
       setBudget("");
@@ -138,7 +151,6 @@ function DashboardPage() {
 
   const startEditTrip = (trip) => {
     setEditingTripId(trip.id);
-  
     setTitle(trip.title);
     setDescription(trip.description);
     setBudget(trip.budget);
@@ -152,6 +164,19 @@ function DashboardPage() {
   };
 
   const updateTrip = async () => {
+    if(Number(budget) < 0){
+        toast.error(
+          "Budget cannot be negative."
+        );
+        return;
+      }
+
+    if(endDate < startDate) {
+        toast.error("End date cannot be before start date.");
+
+        return;
+      }
+
     try{
       const token = localStorage.getItem("token");
 
@@ -173,14 +198,12 @@ function DashboardPage() {
         }
       );
       setEditingTripId(null);
-
       setTitle("");
       setDescription("");
       setBudget("");
       setStartDate("");
       setEndDate("");
       toast.success("Trip updated!");
-
       getTrips();
     }catch(error) {
       console.log(error);
@@ -214,6 +237,21 @@ function DashboardPage() {
 
   return (
     <div className="app">
+
+        <div className="top-strip">
+          <div className="top-strip-user">
+            👤 {name} • {role}
+          </div>
+
+          <button
+            className="logout-btn"
+            onClick={logout}>
+            Logout
+          </button>
+
+        </div>
+
+
       <div className="container">
         <h1 className="title">My Trips</h1>
 
@@ -236,9 +274,19 @@ function DashboardPage() {
           )}
 
         </div>
+
+        
         
         {!isAdminView && (
         <div className="form-section">
+          
+          <div className="dashboard-hero">
+            <h2>
+              ✈️ Ready for your next adventure?
+            </h2>
+           
+          </div>
+
           <input
             type="text"
             placeholder="Trip title"
@@ -289,11 +337,11 @@ function DashboardPage() {
 
         <div className="trip-grid">
           {trips.map((trip) => (
-            <div key={trip.id} className="trip-card" 
-            onClick={() => navigate(isAdminView 
-              ? `/trip/${trip.id}?admin=true`
-              : `/trip/${trip.id}`)}>
-              <h3>{trip.title}</h3>
+            <div key={trip.id} className="trip-card" >
+              
+              <h3>
+                <span className="trip-emoji">🌴</span>
+                {trip.title}</h3>
               <p>{trip.description}</p>
               <p>Budget: {trip.budget}</p>
               
@@ -315,25 +363,23 @@ function DashboardPage() {
                     e.stopPropagation();
 
                     deleteTrip(trip.id);
-                  }}
-                >
+                  }}>
                   Delete
                 </button>
-              </div>  
-                         
+
+                <button
+                  className="details-btn"
+                  onClick={() => 
+                    navigate( isAdminView ? `/trip/${trip.id}?admin=true`
+                                          :`/trip/${trip.id}`)}>
+                  🧳 Details
+                </button>
+              </div>
               )}
             </div>            
           ))}
-        </div>
-        
-      </div>
-      <div className="logout-container">
-        <button
-          className="logout-btn"
-          onClick={logout}>
-          Logout
-        </button>
-      </div>
+        </div>        
+      </div>     
     </div>
   );
 }
