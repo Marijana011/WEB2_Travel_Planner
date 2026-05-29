@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { data, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../App.css";
 
@@ -33,13 +33,13 @@ function AddActivityPage() {
 
       const token = localStorage.getItem("token");
 
-      const tripStart = new Date(trip.startDate);
-      const tripEnd = new Date(trip.endDate);
+      const tripStart = trip.startDate.slice(0, 10);
+      const tripEnd = trip.endDate.slice(0, 10);
 
-      const activityDay = new Date(activityDate);
-      if(activityDay < tripStart || activityDay > tripEnd)
-      {
-        toast.error("Activity date must be within trip dates.");
+      if (
+        activityDate < tripStart || activityDate > tripEnd) {
+        toast.error(
+          "Activity date must be within trip dates.");
         return;
       }
 
@@ -70,16 +70,29 @@ function AddActivityPage() {
 
     } catch (error) {
       console.log(error);
+
+      if(error.response?.data === "Budget exceeded.")
+      {
+        toast.error(
+          "This activity exceeds the trip budget.");
+        return;
+      }
+
+     if(error.response?.data === "Cost cannot be negative.")
+      {
+        toast.error(
+          "Cost cannot be negative.");
+        return;
+      }
+
       toast.error("Failed to create activity.");
     }
   };
 
   const getTrip = async () => {
-
     try {
 
         const token = localStorage.getItem("token");
-
         const response = await axios.get(
         `https://localhost:7215/api/Trip/${id}`,
         {
@@ -129,6 +142,16 @@ const updateActivity = async () => {
 
     const token = localStorage.getItem("token");
 
+    const tripStart = trip.startDate.slice(0, 10);
+      const tripEnd = trip.endDate.slice(0, 10);
+
+      if (
+        activityDate < tripStart || activityDate > tripEnd) {
+        toast.error(
+          "Activity date must be within trip dates.");
+        return;
+      }
+
     await axios.put(
       `https://localhost:7215/api/Activity/${activityId}`,
       {
@@ -167,6 +190,20 @@ const updateActivity = async () => {
 
     console.log(error);
 
+    if(error.response?.data === "Budget exceeded.")
+    {
+      toast.error(
+        "This activity exceeds the trip budget.");
+      return;
+    }
+
+     if(error.response?.data === "Cost cannot be negative.")
+    {
+      toast.error(
+        "Cost cannot be negative.");
+      return;
+    }
+
     toast.error(
       "Update failed."
     );
@@ -202,8 +239,7 @@ useEffect(() => {
               value={activityTitle}
               onChange={(e) =>
                 setActivityTitle(e.target.value)
-              }
-            />
+              }/>
 
             <input
               type="text"
@@ -211,8 +247,7 @@ useEffect(() => {
               value={activityLocation}
               onChange={(e) =>
                 setActivityLocation(e.target.value)
-              }
-            />
+              }/>
 
             <input
               type="text"
@@ -220,8 +255,7 @@ useEffect(() => {
               value={activityDescription}
               onChange={(e) =>
                 setActivityDescription(e.target.value)
-              }
-            />
+              }/>
 
             <input
               type="number"
@@ -229,8 +263,7 @@ useEffect(() => {
               value={estimatedCost}
               onChange={(e) =>
                 setEstimatedCost(e.target.value)
-              }
-            />
+              }/>
 
             <input
               type="date"
@@ -239,16 +272,14 @@ useEffect(() => {
               value={activityDate}
               onChange={(e) =>
                 setActivityDate(e.target.value)
-              }
-            />
+              }/>
 
             <input
               type="time"
               value={activityTime}
               onChange={(e) =>
                 setActivityTime(e.target.value)
-              }
-            />
+              }/>
 
             <input
               type="text"
@@ -256,67 +287,46 @@ useEffect(() => {
               value={notes}
               onChange={(e) =>
                 setNotes(e.target.value)
-              }
-            />
+              }/>
 
             <select
               value={status}
               onChange={(e) =>
                 setStatus(e.target.value)
-              }
-            >
-              <option value="Planned">
-                Planned
-              </option>
+              }>
 
-              <option value="Reserved">
-                Reserved
-              </option>
-
-              <option value="Completed">
-                Completed
-              </option>
-
-              <option value="Cancelled">
-                Cancelled
-              </option>
+              <option value="Planned">Planned</option>
+              <option value="Reserved">Reserved</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
             </select>
 
             <select
               value={category}
               onChange={(e) =>
                 setCategory(e.target.value)
-              }
-            >
-              <option value="Transport">
-                Transport
-              </option>
+              }>
 
-              <option value="Accommodation">
-                Accommodation
-              </option>
+              <option value="Transport">Transport</option>
+              <option value="Accommodation">Accommodation</option>
+              <option value="Food">Food</option>
+              <option value="Tickets">Tickets</option>
 
-              <option value="Food">
-                Food
-              </option>
+              <option value="Adventure">Adventure</option>
+              <option value="Outdoor">Outdoor</option>
+              <option value="Water Sports">Water Sports</option>
+              <option value="Nature">Nature</option>
+              <option value="Culture">Culture</option>
+              <option value="Sightseeing">Sightseeing</option>
+              <option value="Entertainment">Entertainment</option>
 
-              <option value="Tickets">
-                Tickets
-              </option>
-
-              <option value="Shopping">
-                Shopping
-              </option>
-
-              <option value="Other">
-                Other
-              </option>
+              <option value="Shopping">Shopping</option>
+              <option value="Other">Other</option>
             </select>
 
             <button onClick={activityId 
                                 ? updateActivity
-                                : createActivity
-            }>
+                                : createActivity}>
              {activityId
                 ? "Save Activity"
                 : "Add Activity"}
@@ -326,8 +336,7 @@ useEffect(() => {
               className="cancel-btn"
               onClick={() =>
                 navigate(`/trip/${id}`)
-              }
-            >
+              }>
               Cancel
             </button>
 

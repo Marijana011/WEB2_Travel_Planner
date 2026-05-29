@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../App.css";
+import CalendarView from "./CalendarView";
 
 function SharedTripPage() {
 
@@ -93,6 +94,12 @@ function SharedTripPage() {
     return <h1>Loading...</h1>;
   }
 
+  const totalSpent = trip.activities.reduce(
+    (sum, activity) => sum + activity.estimatedCost, 0);
+
+const remainingBudget =
+  trip.budget - totalSpent;
+
   return (
     <div className="app">
       <div className="container">
@@ -100,24 +107,57 @@ function SharedTripPage() {
         <h1 className="title">
           ✈️ {trip.title}
         </h1>
-        <h2>
-          Access:{" "} {accessType}
+        <h2 className="shared-access">
+          🔗 Shared Access: {accessType}
         </h2>
 
         <div className="overview-section">
             <div className="trip-card trip-summary">
 
                 <p>{trip.description}</p>
-                <p>Budget: {trip.budget}</p>
-                <p className="date-text">
-                📅 {trip.startDate.slice(0,10)}
-                {" → "}
-                {trip.endDate.slice(0,10)}
-                </p>
 
+                📅 {
+                  new Date(trip.startDate)
+                    .toLocaleDateString(
+                      "en-US",
+                      {
+                        day: "numeric",
+                        month: "short"
+                      }
+                    )
+                }
+                {" — "}
+                {
+                  new Date(trip.endDate)
+                    .toLocaleDateString(
+                      "en-US",
+                      {
+                        day: "numeric",
+                        month: "short"
+                      }
+                    )
+                }
+
+                <div className="budget-summary">
+                  <div className="remaining-budget">
+                    🏖️ {remainingBudget}
+                    <span>
+                      left to spend
+                    </span>
+                  </div>
+
+                  <div className="budget-pill">
+                    💳 Budget: {trip.budget}
+                  </div>
+
+                  <div className="budget-pill">
+                    💵 Spent: {totalSpent}
+                  </div>
+                </div>
+                
             </div>
 
-            <div className="trip-card checklist-container">
+            <div className="trip-card checklist-container notes-container">
 
                 <h2 className="checklist-title">
                 📝 Reminder List
@@ -139,77 +179,70 @@ function SharedTripPage() {
             {canEdit && (<div className="shared-add-wrapper">
                 {!showChecklistInput ? (
 
-                <span
-                    className="add-checklist-btn"
+                <button
+                    className="mini-add-btn"
                     onClick={() =>
                     setShowChecklistInput(true)}>
-                    ➕
-                </span>
+                    +
+                </button>
 
                 ) : (
-
-                <div className="shared-edit-section">
+                    <>
                     <input
                         type="text"
                         placeholder="New reminder"
                         value={checklistText}
-                        onChange={(e) => setChecklistText(e.target.value)}/>
+                        onChange={(e) => setChecklistText(e.target.value)}
+                        className="mini-note-input"/>
 
-                    <div className="shared-buttons">
                         <button
-                            className="small-add-btn"
+                            className="mini-add-btn"
                             onClick={async () => {
+
+                            if (!checklistText.trim()) {
+                              setShowChecklistInput(false);
+                              return;
+                            }
 
                             await createChecklistItem();
 
-                            setShowChecklistInput(
-                                false
-                            );
-                            }}>
-                            Add
-                        </button>
-
-                        <button
-                            className="small-cancel-btn"
-                            onClick={() => {
-
-                            setShowChecklistInput(
-                                false
-                            );
                             setChecklistText("");
-                            }}>✕
-                        </button>
-
-                    </div>
-
-                </div>
+                            setShowChecklistInput(false);
+                            }}>
+                            ✓
+                        </button>                
+                  </>
                 )}
-
+               
         </div>
         )}
-
+      
     </div>
 
-        <div className="trip-card notes-card">
+    <div className="trip-card notes-container">
 
-            <h2 className="checklist-title">
+          <h2 className="checklist-title">
                 📝 Activity Notes
-            </h2>
+          </h2>
             
-            {trip.activities?.filter((x) => x.notes).map((activity) => (
-                <p key={activity.id}>
-
+            {trip.activities ?.filter((x) => x.notes)
+            .map((activity) => (
+              <div
+                key={activity.id}
+                className="note-item">
                 <strong>
-                    {activity.title}
+                  {activity.title}
                 </strong>
 
                 {" : "}
 
                 {activity.notes}
-
-                </p>               
-            ))}
+              </div>
+          ))}
         </div>
+
+      <CalendarView activities={trip.activities}/>
+        
     </div>
         
 
@@ -220,21 +253,15 @@ function SharedTripPage() {
         <div className="trip-grid">
           {trip.destinations.map(
             (destination) => (
-
             <div
               key={destination.id}
-              className="trip-card">
+              className="trip-card destination-card">
               <h3>
                 📍 {destination.name}
               </h3>
 
-              <p>
-                {destination.location}
-              </p>
-
-              <p>
-                {destination.description}
-              </p>
+              <p>{destination.location}</p>
+              <p> {destination.description}</p>
             </div>
           ))}
         </div>

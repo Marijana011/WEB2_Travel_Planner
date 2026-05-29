@@ -77,6 +77,15 @@ namespace TravelService.Controllers
                 return BadRequest("Cost cannot be negative.");
             }
 
+            var currentSpent = await _context.Activities
+                .Where(x => x.TripId == dto.TripId)
+                .SumAsync(x => x.EstimatedCost);
+
+            if (currentSpent + dto.EstimatedCost > trip.Budget)
+            {
+                return BadRequest("Budget exceeded.");
+            }
+
             var activity = new Activity
             {
                 Id = Guid.NewGuid(),
@@ -126,6 +135,19 @@ namespace TravelService.Controllers
             {
                 return NotFound();
             }
+
+            var trip = await _context.Trips.FirstOrDefaultAsync(x => x.Id == activity.TripId);
+
+            var currentSpent = await _context.Activities
+                .Where(x => x.TripId == activity.TripId &&
+                            x.Id != id)
+                .SumAsync(x => x.EstimatedCost);
+
+            if (currentSpent + dto.EstimatedCost > trip.Budget)
+            {
+                return BadRequest("Budget exceeded.");
+            }
+
 
             activity.Title = dto.Title;
             activity.Location = dto.Location;

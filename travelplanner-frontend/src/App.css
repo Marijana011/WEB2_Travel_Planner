@@ -543,8 +543,6 @@ button:hover {
   
 }
 
-
-
 .activity-card {
   width: 270px;
   flex-shrink: 0;
@@ -769,6 +767,12 @@ button:hover {
   gap: 8px;
 }
 
+.shared-access {
+  text-align: center;
+  color: white;
+  margin-bottom: 25px;
+}
+
 .small-add-btn {
   padding: 8px 12px;
   font-size: 13px;
@@ -889,7 +893,7 @@ button:hover {
   background:rgba(255,255,255,0.35);
   border: none;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 8px 3px;
 }
 
 .remaining-budget {

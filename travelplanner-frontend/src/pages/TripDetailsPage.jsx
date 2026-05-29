@@ -212,8 +212,7 @@ const generatePdf = () => {
   };
 
   
-
-    const deleteDestination = async (destinationId) => {
+  const deleteDestination = async (destinationId) => {
       const confirmed = window.confirm("Are you sure you want to delete this destination?");
 
       if (!confirmed) {
@@ -296,9 +295,7 @@ const addChecklistItem = async () => {
       getChecklist();
     };
 
-    const getChecklist = async () => {
-      const token = localStorage.getItem("token");
-
+  const getChecklist = async () => {const token = localStorage.getItem("token");
       const response = await axios.get(
         `https://localhost:7215/api/Checklist/trip/${id}`,
       {

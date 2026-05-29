@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "E:\\FAKS\\WEB2\\TravelPlanner\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9EEB3678-1A28-409D-A5C2-68E33A787A48}|TravelService\\TravelService.csproj|e:\\faks\\web2\\travelplanner\\travelservice\\controllers\\tripcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9EEB3678-1A28-409D-A5C2-68E33A787A48}|TravelService\\TravelService.csproj|solutionrelative:travelservice\\controllers\\tripcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9EEB3678-1A28-409D-A5C2-68E33A787A48}|TravelService\\TravelService.csproj|e:\\faks\\web2\\travelplanner\\travelservice\\controllers\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9EEB3678-1A28-409D-A5C2-68E33A787A48}|TravelService\\TravelService.csproj|solutionrelative:travelservice\\controllers\\activitycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|e:\\faks\\web2\\travelplanner\\budgetservice\\controllers\\budgetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|solutionrelative:budgetservice\\controllers\\budgetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|e:\\faks\\web2\\travelplanner\\budgetservice\\dtos\\budgetsummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|solutionrelative:budgetservice\\dtos\\budgetsummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EEB3678-1A28-409D-A5C2-68E33A787A48}|TravelService\\TravelService.csproj|e:\\faks\\web2\\travelplanner\\travelservice\\controllers\\tripcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9EEB3678-1A28-409D-A5C2-68E33A787A48}|TravelService\\TravelService.csproj|solutionrelative:travelservice\\controllers\\tripcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9EEB3678-1A28-409D-A5C2-68E33A787A48}|TravelService\\TravelService.csproj|e:\\faks\\web2\\travelplanner\\travelservice\\controllers\\destinationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,20 +39,12 @@
       "RelativeMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|solutionrelative:budgetservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|e:\\faks\\web2\\travelplanner\\budgetservice\\controllers\\budgetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|solutionrelative:budgetservice\\controllers\\budgetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{97641599-E815-4822-870D-DE8D16F19525}|AuthService\\AuthService.csproj|e:\\faks\\web2\\travelplanner\\authservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{97641599-E815-4822-870D-DE8D16F19525}|AuthService\\AuthService.csproj|solutionrelative:authservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|e:\\faks\\web2\\travelplanner\\budgetservice\\budgetservice.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|solutionrelative:budgetservice\\budgetservice.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|e:\\faks\\web2\\travelplanner\\budgetservice\\dtos\\budgetsummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|solutionrelative:budgetservice\\dtos\\budgetsummarydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E0C1D211-693E-4A3E-8F6C-B2C5E259763A}|BudgetService\\BudgetService.csproj|e:\\faks\\web2\\travelplanner\\budgetservice\\budgetservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -138,23 +138,63 @@
       "DocumentGroups": [
         {
           "DockedHeight": 282,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Activity.cs",
-              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Models\\Activity.cs",
-              "RelativeDocumentMoniker": "TravelService\\Models\\Activity.cs",
-              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Models\\Activity.cs",
-              "RelativeToolTip": "TravelService\\Models\\Activity.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAA5wAgAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ActivityController.cs",
+              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\ActivityController.cs",
+              "RelativeDocumentMoniker": "TravelService\\Controllers\\ActivityController.cs",
+              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\ActivityController.cs",
+              "RelativeToolTip": "TravelService\\Controllers\\ActivityController.cs",
+              "ViewState": "AgIAAIUAAAAAAAAAAAAiwJYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-09T12:40:33.696Z"
+              "WhenOpened": "2026-05-11T10:56:09.614Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TripController.cs",
+              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\TripController.cs",
+              "RelativeDocumentMoniker": "TravelService\\Controllers\\TripController.cs",
+              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\TripController.cs",
+              "RelativeToolTip": "TravelService\\Controllers\\TripController.cs",
+              "ViewState": "AgIAAJAAAAAAAAAAAADwv6AAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-09T12:46:22.469Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "BudgetSummaryDto.cs",
+              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\DTOs\\BudgetSummaryDto.cs",
+              "RelativeDocumentMoniker": "BudgetService\\DTOs\\BudgetSummaryDto.cs",
+              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\DTOs\\BudgetSummaryDto.cs",
+              "RelativeToolTip": "BudgetService\\DTOs\\BudgetSummaryDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T17:01:35.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BudgetController.cs",
+              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\Controllers\\BudgetController.cs",
+              "RelativeDocumentMoniker": "BudgetService\\Controllers\\BudgetController.cs",
+              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\Controllers\\BudgetController.cs",
+              "RelativeToolTip": "BudgetService\\Controllers\\BudgetController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T17:22:32.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "DestinationController.cs",
               "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\DestinationController.cs",
               "RelativeDocumentMoniker": "TravelService\\Controllers\\DestinationController.cs",
@@ -166,28 +206,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ActivityController.cs",
-              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\ActivityController.cs",
-              "RelativeDocumentMoniker": "TravelService\\Controllers\\ActivityController.cs",
-              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\ActivityController.cs",
-              "RelativeToolTip": "TravelService\\Controllers\\ActivityController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAUwDkAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "Activity.cs",
+              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Models\\Activity.cs",
+              "RelativeDocumentMoniker": "TravelService\\Models\\Activity.cs",
+              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Models\\Activity.cs",
+              "RelativeToolTip": "TravelService\\Models\\Activity.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA5wAgAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T10:56:09.614Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TripController.cs",
-              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\TripController.cs",
-              "RelativeDocumentMoniker": "TravelService\\Controllers\\TripController.cs",
-              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Controllers\\TripController.cs",
-              "RelativeToolTip": "TravelService\\Controllers\\TripController.cs",
-              "ViewState": "AgIAAJAAAAAAAAAAAADwv6sAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-09T12:46:22.469Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-09T12:40:33.696Z"
             },
             {
               "$type": "Document",
@@ -203,19 +230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "BudgetSummaryDto.cs",
-              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\DTOs\\BudgetSummaryDto.cs",
-              "RelativeDocumentMoniker": "BudgetService\\DTOs\\BudgetSummaryDto.cs",
-              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\DTOs\\BudgetSummaryDto.cs",
-              "RelativeToolTip": "BudgetService\\DTOs\\BudgetSummaryDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-18T17:01:35.784Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "AppDbContextModelSnapshot.cs",
               "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "TravelService\\Migrations\\AppDbContextModelSnapshot.cs",
@@ -227,7 +242,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "BudgetService",
               "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\BudgetService.csproj",
               "RelativeDocumentMoniker": "BudgetService\\BudgetService.csproj",
@@ -238,7 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\Program.cs",
               "RelativeDocumentMoniker": "BudgetService\\Program.cs",
@@ -250,7 +265,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\TravelService\\appsettings.json",
               "RelativeDocumentMoniker": "TravelService\\appsettings.json",
@@ -262,7 +277,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "launchSettings.json",
               "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\AuthService\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "AuthService\\Properties\\launchSettings.json",
@@ -271,18 +286,6 @@
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-05-18T17:20:03.235Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BudgetController.cs",
-              "DocumentMoniker": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\Controllers\\BudgetController.cs",
-              "RelativeDocumentMoniker": "BudgetService\\Controllers\\BudgetController.cs",
-              "ToolTip": "E:\\FAKS\\WEB2\\TravelPlanner\\BudgetService\\Controllers\\BudgetController.cs",
-              "RelativeToolTip": "BudgetService\\Controllers\\BudgetController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAQwAsAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-18T17:22:32.481Z"
             },
             {
               "$type": "Document",
