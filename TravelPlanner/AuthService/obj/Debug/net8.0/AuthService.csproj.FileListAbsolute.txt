@@ -129,12 +129,6 @@ E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\scopedcss\bundle\AuthSer
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets.build.json
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets.development.json
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets\msbuild.AuthService.Microsoft.AspNetCore.StaticWebAssets.props
-E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets\msbuild.AuthService.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets\msbuild.build.AuthService.props
-E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.AuthService.props
-E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AuthService.props
-E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets.pack.json
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthServ.2ED0AEC6.Up2Date
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthService.dll
@@ -143,3 +137,8 @@ E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthService.pdb
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthService.genruntimeconfig.cache
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\ref\AuthService.dll
 E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\AuthService.sourcelink.json
+E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\rpswa.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\rjimswa.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\AuthService\obj\Debug\net8.0\staticwebassets.build.json.cache

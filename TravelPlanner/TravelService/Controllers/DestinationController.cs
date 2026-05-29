@@ -39,7 +39,21 @@ namespace TravelService.Controllers
                 .Where(x => x.TripId == tripId).ToListAsync();
 
             return Ok(destinations);
+        }
 
+        [HttpGet("single/{id}")]
+        public async Task<IActionResult> GetDestination(Guid id)
+        {
+            var destination =
+                await _context.Destinations
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (destination == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(destination);
         }
 
         [HttpPost]

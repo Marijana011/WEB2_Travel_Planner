@@ -21,12 +21,6 @@ E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\scopedcss\bundle\Budge
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets.build.json
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets.development.json
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets\msbuild.BudgetService.Microsoft.AspNetCore.StaticWebAssets.props
-E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets\msbuild.BudgetService.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets\msbuild.build.BudgetService.props
-E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.BudgetService.props
-E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.BudgetService.props
-E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets.pack.json
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetSe.D8A71EB1.Up2Date
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetService.dll
@@ -35,3 +29,8 @@ E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetService.pdb
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetService.genruntimeconfig.cache
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\ref\BudgetService.dll
 E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\BudgetService.sourcelink.json
+E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\rpswa.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\rjimswa.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\BudgetService\obj\Debug\net8.0\staticwebassets.build.json.cache

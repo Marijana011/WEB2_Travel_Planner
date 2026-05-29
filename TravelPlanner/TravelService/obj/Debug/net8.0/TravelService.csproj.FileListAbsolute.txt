@@ -126,12 +126,6 @@ E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\scopedcss\bundle\Trave
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets.build.json
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets.development.json
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets\msbuild.TravelService.Microsoft.AspNetCore.StaticWebAssets.props
-E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets\msbuild.TravelService.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets\msbuild.build.TravelService.props
-E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.TravelService.props
-E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.TravelService.props
-E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets.pack.json
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelSe.11B55D8D.Up2Date
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelService.dll
@@ -140,3 +134,8 @@ E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelService.pdb
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelService.genruntimeconfig.cache
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\ref\TravelService.dll
 E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\TravelService.sourcelink.json
+E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\rpswa.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\rjimswa.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+E:\FAKS\WEB2\TravelPlanner\TravelService\obj\Debug\net8.0\staticwebassets.build.json.cache

@@ -236,7 +236,7 @@ function DashboardPage() {
   }, []);
 
   return (
-    <div className="app">
+    <div className={isAdminView ? "app admin-view" : "app"}>
 
         <div className="top-strip">
           <div className="top-strip-user">
@@ -253,7 +253,11 @@ function DashboardPage() {
 
 
       <div className="container">
-        <h1 className="title">My Trips</h1>
+        <h1 className="title">
+          {isAdminView
+            ? `👤 ${viewedUserName}'s Trips`
+            : "My Trips"}
+        </h1>
 
         <div className="user-info">
 
@@ -276,8 +280,8 @@ function DashboardPage() {
         </div>
 
         
-        
-        {!isAdminView && (
+    {!isAdminView && (
+      <div className="form-background">
         <div className="form-section">
           
           <div className="dashboard-hero">
@@ -333,6 +337,7 @@ function DashboardPage() {
           </button>
           )}
           </div>
+        </div>
         )}
 
         <div className="trip-grid">
@@ -345,8 +350,10 @@ function DashboardPage() {
               <p>{trip.description}</p>
               <p>Budget: {trip.budget}</p>
               
-              {!isAdminView && (
+              
               <div className="card-buttons">
+                {!isAdminView && (
+                  <>
                 <button
                   className="edit-btn"
                   onClick={(e) => {
@@ -365,8 +372,10 @@ function DashboardPage() {
                     deleteTrip(trip.id);
                   }}>
                   Delete
+                  
                 </button>
-
+                </>
+                )}
                 <button
                   className="details-btn"
                   onClick={() => 
@@ -375,7 +384,6 @@ function DashboardPage() {
                   🧳 Details
                 </button>
               </div>
-              )}
             </div>            
           ))}
         </div>        

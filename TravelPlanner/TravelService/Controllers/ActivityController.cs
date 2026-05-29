@@ -42,6 +42,21 @@ namespace TravelService.Controllers
             return Ok(activities);
         }
 
+        [HttpGet("single/{id}")]
+        public async Task<IActionResult> GetActivity(Guid id)
+        {
+            var activity =
+                await _context.Activities
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (activity == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(activity);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateActivity(CreateActivityDto dto)
         {

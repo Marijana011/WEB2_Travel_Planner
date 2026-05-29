@@ -1,0 +1,23 @@
+[
+  {
+    "ContainingType": "BudgetService.Controllers.BudgetController",
+    "Method": "GetBudgetSummary",
+    "RelativePath": "api/Budget",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "plannedBudget",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "spent",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -1,0 +1,44 @@
+.edit-page {
+  min-height: 100vh;
+  background-image:
+    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.25);
+  z-index: 0;
+}
+
+
+.form-section {
+  width: 340px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.form-section input,
+.form-section textarea,
+.form-section select {
+  width: 330px;
+  padding: 9px;
+  align-self: center;
+}

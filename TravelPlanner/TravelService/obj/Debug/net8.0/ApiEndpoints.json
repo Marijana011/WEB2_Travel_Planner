@@ -69,6 +69,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TravelService.Controllers.ActivityController",
+    "Method": "GetActivity",
+    "RelativePath": "api/Activity/single/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TravelService.Controllers.ChecklistController",
     "Method": "AddItem",
     "RelativePath": "api/Checklist",
@@ -179,6 +195,22 @@
     "Parameters": [
       {
         "Name": "tripId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelService.Controllers.DestinationController",
+    "Method": "GetDestination",
+    "RelativePath": "api/Destination/single/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
         "Type": "System.Guid",
         "IsRequired": true
       }
