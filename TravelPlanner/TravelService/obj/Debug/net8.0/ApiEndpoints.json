@@ -235,6 +235,27 @@
   },
   {
     "ContainingType": "TravelService.Controllers.ShareController",
+    "Method": "AddChecklistItem",
+    "RelativePath": "api/Share/{token}/checklist",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "TravelService.DTOs.CreateChecklistDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TravelService.Controllers.ShareController",
     "Method": "CreateShareLink",
     "RelativePath": "api/Share/create",
     "HttpMethod": "POST",

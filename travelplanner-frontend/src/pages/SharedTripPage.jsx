@@ -13,8 +13,8 @@ function SharedTripPage() {
   const [checklistText, setChecklistText] = useState("");
 
   const [showChecklistInput, setShowChecklistInput] = useState(false);
-  const [editingChecklistId, setEditingChecklistId] = useState(null);
-  const [editingChecklistText, setEditingChecklistText] = useState("");
+  const [notFound, setNotFound] = useState(false);
+
 
   const getSharedTrip = async () => {
     try {
@@ -33,42 +33,32 @@ function SharedTripPage() {
     } catch (error) {
 
       console.log(error);
+
+      if(error.response?.status === 404){
+        setNotFound(true);
+      }
     }
   };
 
   const createChecklistItem = async () => {
     try {
         await axios.post(
-        "https://localhost:7215/api/Checklist",
+        `https://localhost:7215/api/Share/${token}/checklist`,
         {
-            tripId: trip.id,
-            text: checklistText
+          text: checklistText,
+          completed: false
         }
-        );
+      );
 
         setChecklistText("");
         getSharedTrip();
 
         } catch (error) {
             console.log(error);
+            console.log(error.response?.data);
         }
     };
 
-    const updateChecklistItem = async (itemId) => {
-        try {
-            await axios.put(
-            `https://localhost:7215/api/Checklist/${itemId}`,
-            {
-                text: editingChecklistText
-            }
-            );
-            setEditingChecklistId(null);
-            setEditingChecklistText("");
-            getSharedTrip();
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
   const groupedActivities = trip?.activities?.reduce((groups, activity) => {
       const date = activity.date.slice(0,10);
@@ -91,6 +81,15 @@ function SharedTripPage() {
   }, []);
 
   if (!trip) {
+
+    if(notFound){
+      return (
+        <div className="app">
+          <h1>Trip no longer exists.</h1>
+        </div>
+      )
+    }
+
     return <h1>Loading...</h1>;
   }
 

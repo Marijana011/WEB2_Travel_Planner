@@ -413,6 +413,47 @@
         }
       }
     },
+    "/api/Share/{token}/checklist": {
+      "post": {
+        "tags": [
+          "Share"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChecklistDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChecklistDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChecklistDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Trip": {
       "get": {
         "tags": [
